@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
 
-	private bool spaceToggle = false;
+	private bool upToggle = false;
 	private Vector2 acceleration;
 	public int maxVelocity;
 
@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		GetInput ();
 	}
 
@@ -25,12 +25,14 @@ public class PlayerMovement : MonoBehaviour {
 		LeftRight ();
 		//acceleration = Vector2.ClampMagnitude (acceleration, maxVelocity);
 		gameObject.GetComponent<Rigidbody2D>().AddForce(acceleration);
+		gameObject.GetComponent<Rigidbody2D> ().AddTorque (-acceleration.normalized.x * acceleration.magnitude);
 	}
 
 	void LeftRight()
 	{
 		if (Input.GetKey (KeyCode.LeftArrow)) {
 			acceleration.x = -50;
+
 		} else if (Input.GetKey (KeyCode.RightArrow)) {
 			acceleration.x = 50;
 		} else {
@@ -39,13 +41,14 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void CheckJump() {
-		if (Input.GetKeyUp (KeyCode.Space)) {
-			spaceToggle = false;
+		if (Input.GetKeyUp (KeyCode.UpArrow)) {
+			upToggle = false;
 		}
 		
-		if (Input.GetKeyDown (KeyCode.Space) && !spaceToggle) {
-			spaceToggle = true;
+		if (Input.GetKeyDown (KeyCode.UpArrow) && !upToggle) {
+			upToggle = true;
 			gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0,1000));
 		}
 	}
+
 }
