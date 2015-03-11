@@ -15,9 +15,7 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
 		GetInput ();
-
 	}
 
 
@@ -25,35 +23,29 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		CheckJump ();
 		LeftRight ();
-		acceleration = Vector2.ClampMagnitude (acceleration, maxVelocity);
+		//acceleration = Vector2.ClampMagnitude (acceleration, maxVelocity);
 		gameObject.GetComponent<Rigidbody2D>().AddForce(acceleration);
 	}
 
 	void LeftRight()
 	{
 		if (Input.GetKey (KeyCode.LeftArrow)) {
-			acceleration.x -= 50;
+			acceleration.x = -50;
 		} else if (Input.GetKey (KeyCode.RightArrow)) {
-			acceleration.x += 50;
+			acceleration.x = 50;
 		} else {
-			acceleration /= 1.5f;
+			acceleration.x = 0;
 		}
-
-	
-
-
 	}
 
 	void CheckJump() {
 		if (Input.GetKeyUp (KeyCode.Space)) {
 			spaceToggle = false;
 		}
-
-
+		
 		if (Input.GetKeyDown (KeyCode.Space) && !spaceToggle) {
 			spaceToggle = true;
 			gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0,1000));
 		}
 	}
-
 }
