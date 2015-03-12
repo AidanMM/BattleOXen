@@ -4,7 +4,7 @@ using System.Collections;
 public class AmmoEmitter : MonoBehaviour {
 
 
-	public GameObject particle;
+	public GameObject AmmoPrefab;
 	public Vector2 dir;
 	public int mag;
 	public int frequency;
@@ -23,10 +23,10 @@ public class AmmoEmitter : MonoBehaviour {
 	void Update () {
 		timer++;
 		if ((count < max || max == -1) && timer % frequency == 0) {
-			var tempObject = Instantiate(particle);
-			tempObject.transform.position = gameObject.transform.position;
-			tempObject.tag = "ammo";
-			tempObject.GetComponent<Rigidbody2D>().AddForce(dir * mag);
+			GameObject ammo = (GameObject)Instantiate(AmmoPrefab);
+			ammo.transform.position = gameObject.transform.position;
+			ammo.tag = "ammo";
+			ammo.GetComponent<Rigidbody2D>().AddForce(dir * mag);
 			count++;
 		}
 	}

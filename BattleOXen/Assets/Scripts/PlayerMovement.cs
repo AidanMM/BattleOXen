@@ -15,7 +15,9 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		GetInput ();
+		if (gameObject.name == "0") {
+			GetInput ();
+		}
 	}
 
 

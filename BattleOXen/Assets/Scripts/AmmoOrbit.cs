@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class AmmoOrbit : MonoBehaviour {
 
+	public GameObject AmmoPrefab;
 	List<GameObject> OrbitList= new List<GameObject> ();
 	float timer = 0;
 	public float OrbitDistance;
@@ -13,11 +14,11 @@ public class AmmoOrbit : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		GameObject ammoBlock = GameObject.FindGameObjectWithTag ("ammo");
 		for(int i = 0; i < InitialOrbitCount; i++)
 		{
-			var tempObject = Instantiate(ammoBlock);
-			OrbitList.Add(tempObject);
+			GameObject ammo = (GameObject)Instantiate(AmmoPrefab);
+			ammo.tag = "ammo";
+			OrbitList.Add(ammo);
 		}
 	}
 	
@@ -58,6 +59,7 @@ public class AmmoOrbit : MonoBehaviour {
 			ammoRigidBody.AddForce(force * 30);
 			ammo.GetComponent<SpriteRenderer>().color = Color.green;
 			//ammo.GetComponent<BoxCollider2D>().enabled = true;
+			ammo.GetComponent<AmmoManager>().shooting = true;
 			OrbitList.RemoveAt(0);
 		}
 	}
@@ -96,6 +98,7 @@ public class AmmoOrbit : MonoBehaviour {
 	{
 		if (collidedObject.gameObject.tag == "ammo") {
 			//collidedObject.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+			collidedObject.gameObject.GetComponent<AmmoManager>().shooting = false;
 			OrbitList.Add(collidedObject.gameObject);
 
 		}
