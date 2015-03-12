@@ -51,4 +51,11 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
+	////for debugging
+	//void OnGUI()
+	//{
+	//	GUI.Label (new Rect (10, 10, 100, 20), "X Acceleration " + gameObject.GetComponent<Rigidbody2D>().
+	//	GUI.Label (new Rect (10, 40, 100, 20), "Y Acceleration " + gameObject.acceleration.y.ToString ());
+	//}
+
 }
