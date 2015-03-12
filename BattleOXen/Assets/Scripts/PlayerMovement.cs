@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		} else if (Input.GetKey (KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) {
 			acceleration.x = 50;
-			acceleration.x = (50 + (-acceleration.normalized.x * acceleration.magnitude));
+			//acceleration.x = (50 + (-acceleration.normalized.x * acceleration.magnitude));
 		} else {
 			acceleration.x = 0;
 		}

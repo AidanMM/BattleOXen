@@ -23,7 +23,6 @@ public class AmmoOrbit : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//print (Input.mousePosition);
 		Orbit ();
 		GetInput ();
 	}
@@ -58,7 +57,7 @@ public class AmmoOrbit : MonoBehaviour {
 			ammoRigidBody.velocity = Vector2.zero;
 			ammoRigidBody.AddForce(force * 30);
 			ammo.GetComponent<SpriteRenderer>().color = Color.green;
-			ammo.GetComponent<BoxCollider2D>().enabled = true;
+			//ammo.GetComponent<BoxCollider2D>().enabled = true;
 			OrbitList.RemoveAt(0);
 		}
 	}
@@ -96,7 +95,7 @@ public class AmmoOrbit : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D collidedObject)
 	{
 		if (collidedObject.gameObject.tag == "ammo") {
-			collidedObject.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+			//collidedObject.gameObject.GetComponent<BoxCollider2D>().enabled = false;
 			OrbitList.Add(collidedObject.gameObject);
 
 		}

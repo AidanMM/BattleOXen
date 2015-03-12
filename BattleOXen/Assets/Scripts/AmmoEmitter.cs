@@ -25,6 +25,7 @@ public class AmmoEmitter : MonoBehaviour {
 		if ((count < max || max == -1) && timer % frequency == 0) {
 			var tempObject = Instantiate(particle);
 			tempObject.transform.position = gameObject.transform.position;
+			tempObject.tag = "ammo";
 			tempObject.GetComponent<Rigidbody2D>().AddForce(dir * mag);
 			count++;
 		}
