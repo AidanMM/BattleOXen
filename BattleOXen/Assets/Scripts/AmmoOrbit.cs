@@ -23,16 +23,16 @@ public class AmmoOrbit : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		//print (Input.mousePosition);
 		Orbit ();
 		GetInput ();
 	}
 
 	void GetInput()
 	{
-		if (Input.GetKeyDown (KeyCode.Space)) {
-			Throw();
-
+		if (Input.GetMouseButtonDown (0)) {
+			Vector2 mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			ThrowAmmo(mousePos);
 		}
 	}
 
@@ -45,6 +45,21 @@ public class AmmoOrbit : MonoBehaviour {
 			OrbitList[0].GetComponent<BoxCollider2D>().enabled = true;
 			OrbitList.RemoveAt(0);
 
+		}
+	}
+
+	void ThrowAmmo(Vector2 mousePos) {
+		if (OrbitList.Count != 0) {
+			GameObject ammo = OrbitList[0];
+			Rigidbody2D ammoRigidBody = ammo.transform.GetComponent<Rigidbody2D>();
+			Vector2 ammoPos = (Vector2)ammo.transform.position;
+			Vector2 force = mousePos - ammoPos;
+
+			ammoRigidBody.velocity = Vector2.zero;
+			ammoRigidBody.AddForce(force * 30);
+			ammo.GetComponent<SpriteRenderer>().color = Color.green;
+			ammo.GetComponent<BoxCollider2D>().enabled = true;
+			OrbitList.RemoveAt(0);
 		}
 	}
 
