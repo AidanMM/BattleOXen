@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour {
 	private bool upToggle = false;
 	private Vector2 acceleration;
 	public int maxVelocity;
+	public int playerID = -1;
 
 	// Use this for initialization
 	void Start () {

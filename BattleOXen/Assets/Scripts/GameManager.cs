@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour {
 		for (int i = 0; i < numPlayers; i++) {
 			player = (GameObject)Instantiate (PlayerPrefab, new Vector2 ((i+1)*50, 10), Quaternion.identity);
 			player.name = i.ToString();
+			player.GetComponent<PlayerMovement>().playerID = i;
+			print (i);
 		}
 	}
 

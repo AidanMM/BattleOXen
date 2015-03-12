@@ -12,13 +12,16 @@ public class AmmoOrbit : MonoBehaviour {
 	public float OrbitSpeed;
 	int dir = 1;
 	bool throwToggle = false;
+	int playerID = -1;
 
 	// Use this for initialization
 	void Start () {
+		playerID = gameObject.GetComponent<PlayerMovement> ().playerID;
 		for(int i = 0; i < InitialOrbitCount; i++)
 		{
 			GameObject ammo = (GameObject)Instantiate(AmmoPrefab);
-			ammo.tag = "ammo";
+			ammo.GetComponent<Ammo>().playerID = playerID;
+			ammo.GetComponent<Ammo>().state = 1;
 			OrbitList.Add(ammo);
 		}
 	}
@@ -33,7 +36,7 @@ public class AmmoOrbit : MonoBehaviour {
 	{
 		float rHorizontal = Input.GetAxis ("RHorizontal");
 		float rVertical = Input.GetAxis ("RVertical");
-		print (rHorizontal + " " + rVertical);
+		//print (rHorizontal + " " + rVertical);
 		Vector2 pos;
 		if (Input.GetMouseButtonDown (0)) {
 			pos = (Vector2)Camera.main.ScreenToWorldPoint (Input.mousePosition);
@@ -53,6 +56,7 @@ public class AmmoOrbit : MonoBehaviour {
 			OrbitList[0].transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(1000 * dir, 0));
 			OrbitList[0].GetComponent<SpriteRenderer>().color = Color.green;
 			OrbitList[0].GetComponent<BoxCollider2D>().enabled = true;
+			OrbitList[0].GetComponent<Ammo>().state = 2;
 			OrbitList.RemoveAt(0);
 
 		}
@@ -70,7 +74,8 @@ public class AmmoOrbit : MonoBehaviour {
 			ammoRigidBody.AddForce(force * 30);
 			ammo.GetComponent<SpriteRenderer>().color = Color.green;
 			//ammo.GetComponent<BoxCollider2D>().enabled = true;
-			ammo.GetComponent<AmmoManager>().shooting = true;
+
+			OrbitList[0].GetComponent<Ammo>().state = 2;
 			OrbitList.RemoveAt(0);
 		}
 	}
@@ -88,8 +93,9 @@ public class AmmoOrbit : MonoBehaviour {
 			ammoRigidBody.AddForce(direction * 5000);
 			ammo.GetComponent<SpriteRenderer>().color = Color.green;
 			//ammo.GetComponent<BoxCollider2D>().enabled = true;
-			ammo.GetComponent<AmmoManager>().shooting = true;
+
 			throwToggle = true;
+			OrbitList[0].GetComponent<Ammo>().state = 2;
 			OrbitList.RemoveAt(0);
 		}
 	}
@@ -127,9 +133,15 @@ public class AmmoOrbit : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D collidedObject)
 	{
 		if (collidedObject.gameObject.tag == "ammo") {
+			int ammoState = collidedObject.gameObject.GetComponent<Ammo>().state;
 			//collidedObject.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-			collidedObject.gameObject.GetComponent<AmmoManager>().shooting = false;
-			OrbitList.Add(collidedObject.gameObject);
+			if(ammoState == 0)
+			{
+			
+				OrbitList.Add(collidedObject.gameObject);
+				collidedObject.gameObject.GetComponent<Ammo>().state = 1;
+				collidedObject.gameObject.GetComponent<Ammo>().playerID = playerID;
+			}
 
 		}
 	}
