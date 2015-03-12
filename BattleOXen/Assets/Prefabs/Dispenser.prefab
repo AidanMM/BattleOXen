@@ -40,7 +40,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e013eb62e3855364fb1c9e575194c2ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particle: {fileID: 128264, guid: 56211797f26274c4687332e9a2bf7909, type: 2}
+  AmmoPrefab: {fileID: 128264, guid: 56211797f26274c4687332e9a2bf7909, type: 2}
   dir: {x: 0, y: 1}
   mag: 1000
   frequency: 100

@@ -11,6 +11,7 @@ public class AmmoOrbit : MonoBehaviour {
 	public int InitialOrbitCount;
 	public float OrbitSpeed;
 	int dir = 1;
+	bool throwToggle = false;
 
 	// Use this for initialization
 	void Start () {
@@ -30,9 +31,18 @@ public class AmmoOrbit : MonoBehaviour {
 
 	void GetInput()
 	{
+		float rHorizontal = Input.GetAxis ("RHorizontal");
+		float rVertical = Input.GetAxis ("RVertical");
+		print (rHorizontal + " " + rVertical);
+		Vector2 pos;
 		if (Input.GetMouseButtonDown (0)) {
-			Vector2 mousePos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			ThrowAmmo(mousePos);
+			pos = (Vector2)Camera.main.ScreenToWorldPoint (Input.mousePosition);
+			ThrowAmmoFromMouse (pos);
+		} else if ((rHorizontal > 0.2 || rHorizontal < -0.2) || (rVertical > 0.2 || rVertical < -0.2)) {
+			pos = new Vector2 (rHorizontal, rVertical);
+			ThrowAmmoFromJoystick (pos);
+		} else {
+			throwToggle = false;
 		}
 	}
 
@@ -48,7 +58,8 @@ public class AmmoOrbit : MonoBehaviour {
 		}
 	}
 
-	void ThrowAmmo(Vector2 mousePos) {
+	//TODO: Refactor both of these to one method. Didn't have time.
+	void ThrowAmmoFromMouse(Vector2 mousePos) {
 		if (OrbitList.Count != 0) {
 			GameObject ammo = OrbitList[0];
 			Rigidbody2D ammoRigidBody = ammo.transform.GetComponent<Rigidbody2D>();
@@ -60,6 +71,25 @@ public class AmmoOrbit : MonoBehaviour {
 			ammo.GetComponent<SpriteRenderer>().color = Color.green;
 			//ammo.GetComponent<BoxCollider2D>().enabled = true;
 			ammo.GetComponent<AmmoManager>().shooting = true;
+			OrbitList.RemoveAt(0);
+		}
+	}
+
+	void ThrowAmmoFromJoystick(Vector2 direction) {
+		if (OrbitList.Count != 0 && !throwToggle) {
+			GameObject ammo = OrbitList[0];
+			Rigidbody2D ammoRigidBody = ammo.transform.GetComponent<Rigidbody2D>();
+			Vector2 ammoPos = (Vector2)ammo.transform.position;
+
+			//TODO: Get this calculation correct. Didn't have time.
+			Vector2 force = (direction * 20) + ammoPos;
+			
+			ammoRigidBody.velocity = Vector2.zero;
+			ammoRigidBody.AddForce(force * 30);
+			ammo.GetComponent<SpriteRenderer>().color = Color.green;
+			//ammo.GetComponent<BoxCollider2D>().enabled = true;
+			ammo.GetComponent<AmmoManager>().shooting = true;
+			throwToggle = true;
 			OrbitList.RemoveAt(0);
 		}
 	}

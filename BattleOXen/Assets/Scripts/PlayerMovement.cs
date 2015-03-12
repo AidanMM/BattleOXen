@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		CheckJump ();
 		LeftRight ();
+		AnalogMovement ();
 		//acceleration = Vector2.ClampMagnitude (acceleration, maxVelocity);
 		gameObject.GetComponent<Rigidbody2D>().AddForce(acceleration);
 		gameObject.GetComponent<Rigidbody2D> ().AddTorque (-acceleration.normalized.x * acceleration.magnitude);
@@ -35,7 +36,6 @@ public class PlayerMovement : MonoBehaviour {
 		if (Input.GetKey (KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) {
 			acceleration.x = -50;
 			//acceleration.x = -(50 + (-acceleration.normalized.x * acceleration.magnitude));
-
 		} else if (Input.GetKey (KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) {
 			acceleration.x = 50;
 			//acceleration.x = (50 + (-acceleration.normalized.x * acceleration.magnitude));
@@ -44,12 +44,19 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
+	void AnalogMovement() {
+		//print (Input.GetAxis ("LHorizontal"));
+		if (Input.GetAxis ("LHorizontal") > 0.2 || Input.GetAxis ("LHorizontal") < -0.2) {
+			acceleration.x = Input.GetAxis ("LHorizontal") * 50;
+		}
+	}
+
 	void CheckJump() {
-		if (Input.GetKeyUp (KeyCode.UpArrow) || Input.GetKeyUp (KeyCode.W)) {
+		if (Input.GetKeyUp (KeyCode.UpArrow) || Input.GetKeyUp (KeyCode.W) || Input.GetButtonDown("Jump")) {
 			upToggle = false;
 		}
 		
-		if ((Input.GetKeyDown (KeyCode.UpArrow) && !upToggle) || (Input.GetKeyDown (KeyCode.W) && !upToggle)) {
+		if ((Input.GetKeyDown (KeyCode.UpArrow) && !upToggle) || (Input.GetKeyDown (KeyCode.W) && !upToggle) || Input.GetButtonDown("Jump") && !upToggle) {
 			upToggle = true;
 			gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0,1000));
 		}

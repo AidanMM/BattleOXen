@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21233902}
   - 50: {fileID: 5064152}
   - 61: {fileID: 6146304}
+  - 114: {fileID: 11484726}
   m_Layer: 0
   m_Name: Ammo
   m_TagString: ammo
@@ -58,6 +59,17 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: .5, y: .5}
+--- !u!114 &11484726
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00766585c98f4a1479dcd1f706387491, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21233902
 SpriteRenderer:
   m_ObjectHideFlags: 1
