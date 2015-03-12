@@ -25,7 +25,6 @@ public class AmmoEmitter : MonoBehaviour {
 		if ((count < max || max == -1) && timer % frequency == 0) {
 			GameObject ammo = (GameObject)Instantiate(AmmoPrefab);
 			ammo.transform.position = gameObject.transform.position;
-			ammo.tag = "ammo";
 			ammo.GetComponent<Rigidbody2D>().AddForce(dir * mag);
 			count++;
 		}

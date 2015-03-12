@@ -39,7 +39,7 @@ public class AmmoOrbit : MonoBehaviour {
 			pos = (Vector2)Camera.main.ScreenToWorldPoint (Input.mousePosition);
 			ThrowAmmoFromMouse (pos);
 		} else if ((rHorizontal > 0.2 || rHorizontal < -0.2) || (rVertical > 0.2 || rVertical < -0.2)) {
-			pos = new Vector2 (rHorizontal, rVertical);
+			pos = new Vector2 (rHorizontal, -rVertical);
 			ThrowAmmoFromJoystick (pos);
 		} else {
 			throwToggle = false;
@@ -82,10 +82,10 @@ public class AmmoOrbit : MonoBehaviour {
 			Vector2 ammoPos = (Vector2)ammo.transform.position;
 
 			//TODO: Get this calculation correct. Didn't have time.
-			Vector2 force = (direction * 20) + ammoPos;
+			direction.Normalize();
 			
 			ammoRigidBody.velocity = Vector2.zero;
-			ammoRigidBody.AddForce(force * 30);
+			ammoRigidBody.AddForce(direction * 5000);
 			ammo.GetComponent<SpriteRenderer>().color = Color.green;
 			//ammo.GetComponent<BoxCollider2D>().enabled = true;
 			ammo.GetComponent<AmmoManager>().shooting = true;
