@@ -96,7 +96,9 @@ public class AmmoOrbit : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D collidedObject)
 	{
 		if (collidedObject.gameObject.tag == "ammo") {
+			collidedObject.gameObject.GetComponent<BoxCollider2D>().enabled = false;
 			OrbitList.Add(collidedObject.gameObject);
+
 		}
 	}
 }
