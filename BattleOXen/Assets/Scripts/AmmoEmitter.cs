@@ -9,17 +9,24 @@ public class AmmoEmitter : MonoBehaviour {
 	public int mag;
 	public int frequency;
 	public int max = 10;
+	//-1 for count will make it spawn infinetly
 	private int count = 0;
 	private int timer = 0;
 
 	// Use this for initialization
 	void Start () {
-		dir *= mag;
+
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		timer++;
+		if ((count < max || max == -1) && timer % frequency == 0) {
+			var tempObject = Instantiate(particle);
+			tempObject.transform.position = gameObject.transform.position;
+			tempObject.GetComponent<Rigidbody2D>().AddForce(dir * mag);
+			count++;
+		}
 	}
 }
