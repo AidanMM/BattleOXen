@@ -30,32 +30,33 @@ public class PlayerMovement : MonoBehaviour {
 
 	void LeftRight()
 	{
-		if (Input.GetKey (KeyCode.LeftArrow)) {
+		if (Input.GetKey (KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) {
 			acceleration.x = -50;
+			//acceleration.x = -(50 + (-acceleration.normalized.x * acceleration.magnitude));
 
-		} else if (Input.GetKey (KeyCode.RightArrow)) {
+		} else if (Input.GetKey (KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) {
 			acceleration.x = 50;
+			acceleration.x = (50 + (-acceleration.normalized.x * acceleration.magnitude));
 		} else {
 			acceleration.x = 0;
 		}
 	}
 
 	void CheckJump() {
-		if (Input.GetKeyUp (KeyCode.UpArrow)) {
+		if (Input.GetKeyUp (KeyCode.UpArrow) || Input.GetKeyUp (KeyCode.W)) {
 			upToggle = false;
 		}
 		
-		if (Input.GetKeyDown (KeyCode.UpArrow) && !upToggle) {
+		if ((Input.GetKeyDown (KeyCode.UpArrow) && !upToggle) || (Input.GetKeyDown (KeyCode.W) && !upToggle)) {
 			upToggle = true;
 			gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0,1000));
 		}
 	}
 
-	////for debugging
-	//void OnGUI()
-	//{
-	//	GUI.Label (new Rect (10, 10, 100, 20), "X Acceleration " + gameObject.GetComponent<Rigidbody2D>().
-	//	GUI.Label (new Rect (10, 40, 100, 20), "Y Acceleration " + gameObject.acceleration.y.ToString ());
-	//}
+	//for debugging
+	void OnGUI()
+	{
+		GUI.Label (new Rect (10, 10, 100, 20), "X Acceleration: " + (-acceleration.normalized.x * acceleration.magnitude).ToString ());
+	}
 
 }
