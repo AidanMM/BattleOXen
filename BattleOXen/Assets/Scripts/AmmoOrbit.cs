@@ -11,12 +11,30 @@ public class AmmoOrbit : MonoBehaviour {
 	public int InitialOrbitCount;
 	public float OrbitSpeed;
 	int dir = 1;
-	bool throwToggle = false;
-	int playerID = -1;
+	bool throwing = false;
+	public int playerID { get; set; }
+	float deadzone = 0.2f;
+	int throwScale = 5000;
 
 	// Use this for initialization
 	void Start () {
-		playerID = gameObject.GetComponent<PlayerMovement> ().playerID;
+		SetupOrbit ();
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		Orbit ();
+
+		if (OrbitList.Count > 0) {
+			if (Input.GetJoystickNames ().Length > 0) {
+				GetJoystickThrow ();
+			} else {
+				GetKeyboardThrow ();
+			}
+		}
+	}
+
+	void SetupOrbit() {
 		for(int i = 0; i < InitialOrbitCount; i++)
 		{
 			GameObject ammo = (GameObject)Instantiate(AmmoPrefab);
@@ -25,79 +43,50 @@ public class AmmoOrbit : MonoBehaviour {
 			OrbitList.Add(ammo);
 		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		Orbit ();
-		GetInput ();
-	}
 
-	void GetInput()
-	{
-		float rHorizontal = Input.GetAxis ("RHorizontal");
-		float rVertical = Input.GetAxis ("RVertical");
-		//print (rHorizontal + " " + rVertical);
-		Vector2 pos;
-		if (Input.GetMouseButtonDown (0)) {
-			pos = (Vector2)Camera.main.ScreenToWorldPoint (Input.mousePosition);
-			ThrowAmmoFromMouse (pos);
-		} else if ((rHorizontal > 0.2 || rHorizontal < -0.2) || (rVertical > 0.2 || rVertical < -0.2)) {
-			pos = new Vector2 (rHorizontal, -rVertical);
-			ThrowAmmoFromJoystick (pos);
+	void GetJoystickThrow() {
+		string joystickRHorizontalAxis = "J" + playerID + "RHorizontal";
+		string joystickRVerticalAxis = "J" + playerID + "RVertical";
+		float rHorizontal = Input.GetAxis (joystickRHorizontalAxis);
+		float rVertical = Input.GetAxis (joystickRVerticalAxis);
+		if (OutsideDeadzone(rHorizontal, rVertical)) {
+			if (!throwing) {
+				throwing = true;
+				Throw (new Vector2(rHorizontal, rVertical), true);
+			}
 		} else {
-			throwToggle = false;
+			throwing = false;
 		}
 	}
 
-	void Throw()
-	{
-		if (OrbitList.Count != 0) {
-			OrbitList[0].transform.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-			OrbitList[0].transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(1000 * dir, 0));
-			OrbitList[0].GetComponent<SpriteRenderer>().color = Color.green;
-			OrbitList[0].GetComponent<BoxCollider2D>().enabled = true;
-			OrbitList[0].GetComponent<Ammo>().state = 2;
-			OrbitList.RemoveAt(0);
-
+	void GetKeyboardThrow() {
+		if (Input.GetMouseButtonDown (0)) {
+			Vector2 input = (Vector2)Camera.main.ScreenToWorldPoint (Input.mousePosition);
+			Throw (input, false);
 		}
 	}
 
-	//TODO: Refactor both of these to one method. Didn't have time.
-	void ThrowAmmoFromMouse(Vector2 mousePos) {
-		if (OrbitList.Count != 0) {
-			GameObject ammo = OrbitList[0];
-			Rigidbody2D ammoRigidBody = ammo.transform.GetComponent<Rigidbody2D>();
+	bool OutsideDeadzone(float rHorizontal, float rVertical) {
+		return (rHorizontal > deadzone || rHorizontal < -deadzone) || (rVertical > deadzone || rVertical < -deadzone);
+	}
+
+	void Throw(Vector2 input, bool fromJoystick) {
+		GameObject ammo = OrbitList[0];
+		Rigidbody2D ammoRigidBody = ammo.transform.GetComponent<Rigidbody2D>();
+		ammoRigidBody.velocity = Vector2.zero;
+		
+		if (fromJoystick) {
+			input.Normalize();
+			ammoRigidBody.AddForce(input * throwScale);
+		} else {
 			Vector2 ammoPos = (Vector2)ammo.transform.position;
-			Vector2 force = mousePos - ammoPos;
-
-			ammoRigidBody.velocity = Vector2.zero;
+			Vector2 force = input - ammoPos;
 			ammoRigidBody.AddForce(force * 30);
-			ammo.GetComponent<SpriteRenderer>().color = Color.green;
-			//ammo.GetComponent<BoxCollider2D>().enabled = true;
-
-			OrbitList[0].GetComponent<Ammo>().state = 2;
-			OrbitList.RemoveAt(0);
 		}
-	}
 
-	void ThrowAmmoFromJoystick(Vector2 direction) {
-		if (OrbitList.Count != 0 && !throwToggle) {
-			GameObject ammo = OrbitList[0];
-			Rigidbody2D ammoRigidBody = ammo.transform.GetComponent<Rigidbody2D>();
-			Vector2 ammoPos = (Vector2)ammo.transform.position;
-
-			//TODO: Get this calculation correct. Didn't have time.
-			direction.Normalize();
-			
-			ammoRigidBody.velocity = Vector2.zero;
-			ammoRigidBody.AddForce(direction * 5000);
-			ammo.GetComponent<SpriteRenderer>().color = Color.green;
-			//ammo.GetComponent<BoxCollider2D>().enabled = true;
-
-			throwToggle = true;
-			OrbitList[0].GetComponent<Ammo>().state = 2;
-			OrbitList.RemoveAt(0);
-		}
+		ammo.GetComponent<SpriteRenderer>().color = Color.green;
+		OrbitList[0].GetComponent<Ammo>().state = 2;
+		OrbitList.RemoveAt(0);
 	}
 
 	void Orbit()

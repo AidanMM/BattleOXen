@@ -21,8 +21,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void LimitNumPlayers() {
-		if (numPlayers > 3) {
-			numPlayers = 3;
+		if (numPlayers > 4) {
+			numPlayers = 4;
 		} else if (numPlayers < 1) {
 			numPlayers = 1;
 		}
@@ -30,10 +30,11 @@ public class GameManager : MonoBehaviour {
 
 	void CreatePlayers() {
 		GameObject player;
-		for (int i = 0; i < numPlayers; i++) {
-			player = (GameObject)Instantiate (PlayerPrefab, new Vector2 ((i+1)*50, 10), Quaternion.identity);
+		for (int i = 1; i <= numPlayers; i++) {
+			player = (GameObject)Instantiate (PlayerPrefab, new Vector2 ((i-1) * 50, 10), Quaternion.identity);
 			player.name = i.ToString();
 			player.GetComponent<PlayerMovement>().playerID = i;
+			player.GetComponent<AmmoOrbit>().playerID = i;
 			print (i);
 		}
 	}

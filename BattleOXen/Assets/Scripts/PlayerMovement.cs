@@ -6,61 +6,69 @@ public class PlayerMovement : MonoBehaviour {
 	private bool upToggle = false;
 	private Vector2 acceleration;
 	public int maxVelocity;
-	public int playerID = -1;
+	public int playerID { get; set; }
 
 	// Use this for initialization
 	void Start () {
 		acceleration = new Vector2 (0, 0);
-
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
-		if (gameObject.name == "0") {
-			GetInput ();
+	void Update () {
+		if (Input.GetJoystickNames ().Length > 0) {
+			GetJoystickInput();
+		} else {
+			GetKeyboardInput();
+		}
+		AddAccelerationForce();
+	}
+
+	void GetJoystickInput() {
+		JoystickJump ();
+		JoystickMove ();
+	}
+
+	void GetKeyboardInput() {
+		KeyboardJump ();
+		KeyboardMove ();
+	}
+
+	void JoystickJump() {
+		string joystickButton = "J" + playerID + "Jump";
+		if (Input.GetButtonDown (joystickButton)) {
+			gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, 1000));
 		}
 	}
 
-
-	void GetInput()
-	{
-		CheckJump ();
-		LeftRight ();
-		AnalogMovement ();
-		//acceleration = Vector2.ClampMagnitude (acceleration, maxVelocity);
-		gameObject.GetComponent<Rigidbody2D>().AddForce(acceleration);
-		gameObject.GetComponent<Rigidbody2D> ().AddTorque (-acceleration.normalized.x * acceleration.magnitude);
+	void JoystickMove() {
+		string joystickAxis = "J" + playerID + "LHorizontal";
+		acceleration.x = Input.GetAxis (joystickAxis) * 50;
 	}
 
-	void LeftRight()
-	{
+	void KeyboardJump() {
+		if (Input.GetKeyUp (KeyCode.UpArrow) || Input.GetKeyUp (KeyCode.W)) {
+			upToggle = false;
+		}
+		
+		if ((Input.GetKeyDown (KeyCode.UpArrow) && !upToggle) || (Input.GetKeyDown (KeyCode.W) && !upToggle)) {
+			upToggle = true;
+			gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0,1000));
+		}
+	}
+
+	void KeyboardMove() {
 		if (Input.GetKey (KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) {
 			acceleration.x = -50;
-			//acceleration.x = -(50 + (-acceleration.normalized.x * acceleration.magnitude));
 		} else if (Input.GetKey (KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) {
 			acceleration.x = 50;
-			//acceleration.x = (50 + (-acceleration.normalized.x * acceleration.magnitude));
 		} else {
 			acceleration.x = 0;
 		}
 	}
 
-	void AnalogMovement() {
-		//print (Input.GetAxis ("LHorizontal"));
-		if (Input.GetAxis ("LHorizontal") > 0.2 || Input.GetAxis ("LHorizontal") < -0.2) {
-			acceleration.x = Input.GetAxis ("LHorizontal") * 50;
-		}
-	}
-
-	void CheckJump() {
-		if (Input.GetKeyUp (KeyCode.UpArrow) || Input.GetKeyUp (KeyCode.W) || Input.GetButtonDown("Jump")) {
-			upToggle = false;
-		}
-		
-		if ((Input.GetKeyDown (KeyCode.UpArrow) && !upToggle) || (Input.GetKeyDown (KeyCode.W) && !upToggle) || Input.GetButtonDown("Jump") && !upToggle) {
-			upToggle = true;
-			gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0,1000));
-		}
+	void AddAccelerationForce() {
+		gameObject.GetComponent<Rigidbody2D>().AddForce(acceleration);
+		gameObject.GetComponent<Rigidbody2D> ().AddTorque (-acceleration.normalized.x * acceleration.magnitude);
 	}
 
 	//for debugging
