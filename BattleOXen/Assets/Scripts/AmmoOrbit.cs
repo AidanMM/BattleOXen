@@ -29,7 +29,9 @@ public class AmmoOrbit : MonoBehaviour {
 			if (Input.GetJoystickNames ().Length > 0) {
 				GetJoystickThrow ();
 			} else {
-				GetKeyboardThrow ();
+				if (playerID == 1) {
+					GetKeyboardThrow ();
+				}
 			}
 		}
 	}

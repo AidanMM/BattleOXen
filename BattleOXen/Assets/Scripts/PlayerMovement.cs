@@ -18,7 +18,9 @@ public class PlayerMovement : MonoBehaviour {
 		if (Input.GetJoystickNames ().Length > 0) {
 			GetJoystickInput();
 		} else {
-			GetKeyboardInput();
+			if (playerID == 1) {
+				GetKeyboardInput();
+			}
 		}
 		AddAccelerationForce();
 	}
