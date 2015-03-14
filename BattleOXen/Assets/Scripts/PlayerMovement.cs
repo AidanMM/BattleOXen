@@ -4,6 +4,9 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour {
 
 	private bool upToggle = false;
+	private bool jumpToggle = true;
+	private const int MAXJUMPS = 2;
+	private int numJumps = MAXJUMPS;
 	private Vector2 acceleration;
 	public int maxVelocity;
 	public int playerID { get; set; }
@@ -37,8 +40,13 @@ public class PlayerMovement : MonoBehaviour {
 
 	void JoystickJump() {
 		string joystickButton = "J" + playerID + "Jump";
-		if (Input.GetButtonDown (joystickButton)) {
-			gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, 1000));
+		if (Input.GetButtonDown (joystickButton) && jumpToggle) {
+			gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, 3000));
+			numJumps++;
+			if(numJumps >= MAXJUMPS)
+			{
+				jumpToggle = false;
+			}
 		}
 	}
 
@@ -52,9 +60,14 @@ public class PlayerMovement : MonoBehaviour {
 			upToggle = false;
 		}
 		
-		if ((Input.GetKeyDown (KeyCode.UpArrow) && !upToggle) || (Input.GetKeyDown (KeyCode.W) && !upToggle)) {
+		if (((Input.GetKeyDown (KeyCode.UpArrow) && !upToggle) || (Input.GetKeyDown (KeyCode.W) && !upToggle)) && jumpToggle) {
 			upToggle = true;
-			gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0,1000));
+			gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0,3000));
+			numJumps++;
+			if(numJumps >= MAXJUMPS)
+			{
+				jumpToggle = false;
+			}
 		}
 	}
 
@@ -82,12 +95,23 @@ public class PlayerMovement : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D collidedObject)
 	{
 		if (collidedObject.gameObject.tag == "ammo") {
-			int objID = collidedObject.gameObject.GetComponent<Ammo>().playerID;
-			if(objID >= 0 && objID != playerID)
-			{
-				gameObject.GetComponent<Rigidbody2D>().AddForce(collidedObject.gameObject.GetComponent<Rigidbody2D>().velocity * 100);
+			int objID = collidedObject.gameObject.GetComponent<Ammo> ().playerID;
+			if (objID >= 0 && objID != playerID) {
+				gameObject.GetComponent<Rigidbody2D> ().AddForce (collidedObject.gameObject.GetComponent<Rigidbody2D> ().velocity * 100);
 			}
 		}
-	}
 
+		if (collidedObject.gameObject.tag == "stageHorizontal") {	// resets jump counter and reenables jumping if you touch a horizontal platform
+			numJumps = 0;
+			jumpToggle = true;
+		}
+
+		if (collidedObject.gameObject.tag == "player") {		// collides with player
+		}
+
+		if (collidedObject.gameObject.tag == "stageVertical") { // Wall jumping mechanic, commenting out for now
+			numJumps = 1;
+			jumpToggle = true;
+		}
+	}
 }

@@ -40,7 +40,8 @@ public class Ammo : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D collidedObject)
 	{
-		if (collidedObject.gameObject.tag == "stage" && state == 2) {
+		if ((collidedObject.gameObject.tag == "stageHorizontal" || collidedObject.gameObject.tag == "stageVertical" 
+		    || collidedObject.gameObject.tag =="stageTop") && state == 2) {
 			playerID = -1;
 			state = 0;
 		}

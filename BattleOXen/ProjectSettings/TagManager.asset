@@ -5,7 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - ammo
-  - stage
+  - stageHorizontal
+  - stageVertical
+  - stageTop
+  - player
   layers:
   - Default
   - TransparentFX
