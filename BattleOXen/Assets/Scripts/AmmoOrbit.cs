@@ -40,6 +40,7 @@ public class AmmoOrbit : MonoBehaviour {
 			GameObject ammo = (GameObject)Instantiate(AmmoPrefab);
 			ammo.GetComponent<Ammo>().playerID = playerID;
 			ammo.GetComponent<Ammo>().state = 1;
+			ammo.GetComponent<BoxCollider2D>().enabled = false;
 			OrbitList.Add(ammo);
 		}
 	}
@@ -83,7 +84,7 @@ public class AmmoOrbit : MonoBehaviour {
 			Vector2 force = input - ammoPos;
 			ammoRigidBody.AddForce(force * 30);
 		}
-
+		ammo.GetComponent<BoxCollider2D>().enabled = true;
 		ammo.GetComponent<SpriteRenderer>().color = Color.green;
 		OrbitList[0].GetComponent<Ammo>().state = 2;
 		OrbitList.RemoveAt(0);
@@ -103,7 +104,12 @@ public class AmmoOrbit : MonoBehaviour {
 			OrbitList[i].transform.position = 
 				new Vector2(gameObject.transform.position.x + Mathf.Cos (((360/OrbitList.Count) * (i + timer / 360) ) * Mathf.Deg2Rad ) * OrbitDistance, 
 				            gameObject.transform.position.y + Mathf.Sin (((360/OrbitList.Count) * (i + timer / 360) ) * Mathf.Deg2Rad ) * OrbitDistance);
-
+			if(OrbitList[i].GetComponent<Ammo>().state == 0)
+			{
+				OrbitList.RemoveAt(i);
+				i--;
+				continue;
+			}
 			
 		}
 		
@@ -113,9 +119,10 @@ public class AmmoOrbit : MonoBehaviour {
 		else if(gameObject.GetComponent<Rigidbody2D> ().velocity.x < -1) {
 			dir = -1;
 		}
-		
+
 		timer += gameObject.GetComponent<Rigidbody2D>().angularVelocity / 25 
 			+ (OrbitSpeed * -dir);
+
 	}
 
 
@@ -123,7 +130,7 @@ public class AmmoOrbit : MonoBehaviour {
 	{
 		if (collidedObject.gameObject.tag == "ammo") {
 			int ammoState = collidedObject.gameObject.GetComponent<Ammo>().state;
-			//collidedObject.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+			collidedObject.gameObject.GetComponent<BoxCollider2D>().enabled = false;
 			if(ammoState == 0)
 			{
 			

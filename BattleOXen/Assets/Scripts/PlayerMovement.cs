@@ -77,4 +77,15 @@ public class PlayerMovement : MonoBehaviour {
 		GUI.Label (new Rect (10, 10, 100, 20), "X Acceleration: " + (-acceleration.normalized.x * acceleration.magnitude).ToString ());
 	}
 
+	void OnCollisionEnter2D(Collision2D collidedObject)
+	{
+		if (collidedObject.gameObject.tag == "ammo") {
+			int objID = collidedObject.gameObject.GetComponent<Ammo>().playerID;
+			if(objID >= 0 && objID != playerID)
+			{
+				gameObject.GetComponent<Rigidbody2D>().AddForce(collidedObject.gameObject.GetComponent<Rigidbody2D>().velocity * 100);
+			}
+		}
+	}
+
 }

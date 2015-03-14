@@ -44,6 +44,13 @@ public class Ammo : MonoBehaviour {
 			playerID = -1;
 			state = 0;
 		}
+		if (collidedObject.gameObject.tag == "ammo" && state == 2 && collidedObject.gameObject.GetComponent<Ammo>().state == 1) {
+			state = 0;
+			playerID = -1;
+			collidedObject.gameObject.GetComponent<Ammo>().state = 0;
+
+		}
+
 	}
 
 }
