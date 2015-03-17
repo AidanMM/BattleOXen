@@ -10,7 +10,7 @@ public class AmmoOrbit : MonoBehaviour {
 	public float OrbitDistance;
 	public int InitialOrbitCount;
 	public float OrbitSpeed;
-	int dir = 1;
+	double dir = 1;
 	bool throwing = false;
 	public int playerID { get; set; }
 	float deadzone = 0.2f;
@@ -44,6 +44,8 @@ public class AmmoOrbit : MonoBehaviour {
 			ammo.GetComponent<Ammo>().playerID = playerID;
 			ammo.GetComponent<Ammo>().state = 1;
 			ammo.GetComponent<BoxCollider2D>().enabled = false;
+			ammo.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+			ammo.transform.position = gameObject.transform.position;
 			OrbitList.Add(ammo);
 		}
 	}
@@ -75,7 +77,22 @@ public class AmmoOrbit : MonoBehaviour {
 	}
 
 	void Throw(Vector2 input, bool fromJoystick) {
+		int indexOf = 0;
+		//Find the position that we want to put a block closest to for finding
+		Vector2 targetVec = new Vector2(input.normalized.x * OrbitDistance, input.normalized.y * OrbitDistance);
+		//Create a distance value so we can find the closest orbiter to our desired location
 		GameObject ammo = OrbitList[0];
+		float dist = Mathf.Abs(Vector2.Distance(targetVec, ammo.transform.position ));
+		for (int i = 1; i < OrbitList.Count; i++) {
+			float newDist = Mathf.Abs(Vector2.Distance(targetVec, OrbitList[i].transform.position));
+			if(newDist < dist)
+			{
+				dist = newDist;
+				ammo = OrbitList[i];
+				indexOf = i;
+			}
+
+		}
 		Rigidbody2D ammoRigidBody = ammo.transform.GetComponent<Rigidbody2D>();
 		ammoRigidBody.velocity = Vector2.zero;
 		
@@ -89,8 +106,9 @@ public class AmmoOrbit : MonoBehaviour {
 		}
 		RemoveList.Add (ammo);
 		ammo.GetComponent<SpriteRenderer>().color = Color.green;
-		OrbitList[0].GetComponent<Ammo>().state = 2;
-		OrbitList.RemoveAt(0);
+		ammo.GetComponent<Ammo>().state = 2;
+		ammo.GetComponent<Rigidbody2D>().gravityScale = 3.0f;
+		OrbitList.RemoveAt(indexOf);
 	}
 
 	void Orbit()
@@ -104,9 +122,9 @@ public class AmmoOrbit : MonoBehaviour {
 			{
 				OrbitList[i].GetComponent<SpriteRenderer>().color = Color.white;
 			}
-			OrbitList[i].transform.position = 
-				new Vector2(gameObject.transform.position.x + Mathf.Cos (((360/OrbitList.Count) * (i + timer / 360) ) * Mathf.Deg2Rad ) * OrbitDistance, 
-				            gameObject.transform.position.y + Mathf.Sin (((360/OrbitList.Count) * (i + timer / 360) ) * Mathf.Deg2Rad ) * OrbitDistance);
+			OrbitList[i].GetComponent<Ammo>().goalPoint = 
+				new Vector2(gameObject.transform.position.x + Mathf.Cos (((360/(float)OrbitList.Count) * ((float)i + (float)timer / 360) ) * Mathf.Deg2Rad ) * OrbitDistance, 
+				            gameObject.transform.position.y + Mathf.Sin (((360/(float)OrbitList.Count) * ((float)i + (float)timer / 360) ) * Mathf.Deg2Rad ) * OrbitDistance);
 			if(OrbitList[i].GetComponent<Ammo>().state == 0)
 			{
 				OrbitList.RemoveAt(i);
@@ -124,7 +142,7 @@ public class AmmoOrbit : MonoBehaviour {
 		}
 
 		timer += gameObject.GetComponent<Rigidbody2D>().angularVelocity / 25 
-			+ (OrbitSpeed * -dir);
+			+ (OrbitSpeed * -(float)dir);
 
 	}
 
@@ -150,9 +168,11 @@ public class AmmoOrbit : MonoBehaviour {
 			if(ammoState == 0 || collidedObject.gameObject.GetComponent<Ammo>().playerID == playerID)
 			{
 				collidedObject.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+				collidedObject.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
 				OrbitList.Add(collidedObject.gameObject);
 				collidedObject.gameObject.GetComponent<Ammo>().state = 1;
 				collidedObject.gameObject.GetComponent<Ammo>().playerID = playerID;
+
 			}
 
 		}

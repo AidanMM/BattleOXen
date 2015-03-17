@@ -71,7 +71,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54552175510bb0646babf9e336c70007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVelocity: 100
 --- !u!114 &11456196
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -85,7 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AmmoPrefab: {fileID: 128264, guid: 56211797f26274c4687332e9a2bf7909, type: 2}
   OrbitDistance: 15
-  InitialOrbitCount: 3
+  InitialOrbitCount: 15
   OrbitSpeed: 3
 --- !u!212 &21287290
 SpriteRenderer:
