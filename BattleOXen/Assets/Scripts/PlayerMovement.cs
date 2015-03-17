@@ -83,13 +83,14 @@ public class PlayerMovement : MonoBehaviour {
 
 	void AddAccelerationForce() {
 		gameObject.GetComponent<Rigidbody2D>().AddForce(acceleration);
-		gameObject.GetComponent<Rigidbody2D> ().AddTorque (-acceleration.normalized.x * acceleration.magnitude);
+		gameObject.GetComponent<Rigidbody2D> ().AddTorque (-acceleration.normalized.x * acceleration.magnitude * 5);
 	}
 
 	//for debugging
 	void OnGUI()
 	{
-		GUI.Label (new Rect (10, 10, 100, 20), "X Acceleration: " + (-acceleration.normalized.x * acceleration.magnitude).ToString ());
+		//Commented out becase this is a permanent change to the gui. not a debug setting
+		//GUI.Label (new Rect (10, 10, 100, 20), "X Acceleration: " + (-acceleration.normalized.x * acceleration.magnitude).ToString ());
 	}
 
 	void OnCollisionEnter2D(Collision2D collidedObject)

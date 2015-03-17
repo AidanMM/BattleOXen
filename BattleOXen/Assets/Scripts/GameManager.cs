@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		ResetLevelOnInput ();
 	}
 
 	void LimitNumPlayers() {
@@ -36,11 +38,17 @@ public class GameManager : MonoBehaviour {
 			player.tag = "player";
 			player.GetComponent<PlayerMovement>().playerID = i;
 			player.GetComponent<AmmoOrbit>().playerID = i;
-			print (i);
 		}
 	}
 
 	void CreateDispenser() {
 		Instantiate (DispenserPrefab, new Vector2 (-1, 20), Quaternion.identity);
+	}
+
+	void ResetLevelOnInput()
+	{
+		if (Input.GetKey (KeyCode.R)) {
+			Application.LoadLevel(0);
+		}
 	}
 }

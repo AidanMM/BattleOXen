@@ -15,6 +15,7 @@ public class AmmoOrbit : MonoBehaviour {
 	public int playerID { get; set; }
 	float deadzone = 0.2f;
 	int throwScale = 5000;
+	List<GameObject> RemoveList = new List<GameObject>();
 
 	// Use this for initialization
 	void Start () {
@@ -24,7 +25,7 @@ public class AmmoOrbit : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Orbit ();
-
+		HandleThrown ();
 		if (OrbitList.Count > 0) {
 			if (Input.GetJoystickNames ().Length > 0) {
 				GetJoystickThrow ();
@@ -86,7 +87,7 @@ public class AmmoOrbit : MonoBehaviour {
 			Vector2 force = input - ammoPos;
 			ammoRigidBody.AddForce(force * 30);
 		}
-		ammo.GetComponent<BoxCollider2D>().enabled = true;
+		RemoveList.Add (ammo);
 		ammo.GetComponent<SpriteRenderer>().color = Color.green;
 		OrbitList[0].GetComponent<Ammo>().state = 2;
 		OrbitList.RemoveAt(0);
@@ -127,6 +128,19 @@ public class AmmoOrbit : MonoBehaviour {
 
 	}
 
+	void HandleThrown()
+	{
+		for (int i = 0; i < RemoveList.Count; i++) {
+			if(Vector2.Distance(gameObject.transform.position, RemoveList[i].transform.position) > OrbitDistance)
+			{
+				RemoveList[i].GetComponent<BoxCollider2D>().enabled = true;
+				RemoveList.RemoveAt(i);
+				i++;
+				continue;
+			}
+		}
+	}
+
 
 	void OnCollisionEnter2D(Collision2D collidedObject)
 	{
@@ -135,7 +149,7 @@ public class AmmoOrbit : MonoBehaviour {
 			collidedObject.gameObject.GetComponent<BoxCollider2D>().enabled = false;
 			if(ammoState == 0)
 			{
-			
+
 				OrbitList.Add(collidedObject.gameObject);
 				collidedObject.gameObject.GetComponent<Ammo>().state = 1;
 				collidedObject.gameObject.GetComponent<Ammo>().playerID = playerID;

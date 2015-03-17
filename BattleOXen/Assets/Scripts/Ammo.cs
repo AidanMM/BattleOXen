@@ -17,8 +17,8 @@ public class Ammo : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		switch (playerID) {
-		case 0: 
-			GetComponent<SpriteRenderer>().color = Color.green;
+		case 1: 
+			GetComponent<SpriteRenderer>().color = Color.red;
 			break;
 		case 2:
 			GetComponent<SpriteRenderer>().color = Color.blue;
@@ -27,7 +27,7 @@ public class Ammo : MonoBehaviour {
 			GetComponent<SpriteRenderer>().color = Color.yellow;
 			break;
 		case 4:
-			GetComponent<SpriteRenderer>().color = Color.red;
+			GetComponent<SpriteRenderer>().color = Color.green;
 			break;
 		case -1:
 			GetComponent<SpriteRenderer>().color = Color.gray;
@@ -45,7 +45,8 @@ public class Ammo : MonoBehaviour {
 			playerID = -1;
 			state = 0;
 		}
-		if (collidedObject.gameObject.tag == "ammo" && state == 2 && collidedObject.gameObject.GetComponent<Ammo>().state == 1) {
+		if (collidedObject.gameObject.tag == "ammo" && 
+		    	collidedObject.gameObject.GetComponent<Ammo>().playerID != playerID) {
 			state = 0;
 			playerID = -1;
 			collidedObject.gameObject.GetComponent<Ammo>().state = 0;

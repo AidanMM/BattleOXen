@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 100390}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 30, y: 30, z: 1}
+  m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -59,7 +59,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: .5, y: .5}
+  m_Size: {x: .449999988, y: .449999988}
 --- !u!114 &11428372
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AmmoPrefab: {fileID: 128264, guid: 56211797f26274c4687332e9a2bf7909, type: 2}
-  OrbitDistance: 10
+  OrbitDistance: 15
   InitialOrbitCount: 3
   OrbitSpeed: 3
 --- !u!212 &21287290
