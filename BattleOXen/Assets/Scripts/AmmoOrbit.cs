@@ -42,7 +42,7 @@ public class AmmoOrbit : MonoBehaviour {
 		{
 			GameObject ammo = (GameObject)Instantiate(AmmoPrefab);
 			ammo.GetComponent<Ammo>().playerID = playerID;
-			ammo.GetComponent<Ammo>().state = 1;
+			ammo.GetComponent<Ammo>().state = Ammo.State.Orbiting;
 			ammo.GetComponent<BoxCollider2D>().enabled = false;
 			ammo.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
 			ammo.transform.position = gameObject.transform.position;
@@ -106,7 +106,7 @@ public class AmmoOrbit : MonoBehaviour {
 		}
 		RemoveList.Add (ammo);
 		ammo.GetComponent<SpriteRenderer>().color = Color.green;
-		ammo.GetComponent<Ammo>().state = 2;
+		ammo.GetComponent<Ammo>().state = Ammo.State.Thrown;
 		ammo.GetComponent<Rigidbody2D>().gravityScale = 3.0f;
 		OrbitList.RemoveAt(indexOf);
 	}
@@ -125,7 +125,7 @@ public class AmmoOrbit : MonoBehaviour {
 			OrbitList[i].GetComponent<Ammo>().goalPoint = 
 				new Vector2(gameObject.transform.position.x + Mathf.Cos (((360/(float)OrbitList.Count) * ((float)i + (float)timer / 360) ) * Mathf.Deg2Rad ) * OrbitDistance, 
 				            gameObject.transform.position.y + Mathf.Sin (((360/(float)OrbitList.Count) * ((float)i + (float)timer / 360) ) * Mathf.Deg2Rad ) * OrbitDistance);
-			if(OrbitList[i].GetComponent<Ammo>().state == 0)
+			if(OrbitList[i].GetComponent<Ammo>().state == Ammo.State.Idle)
 			{
 				OrbitList.RemoveAt(i);
 				i--;
@@ -163,15 +163,15 @@ public class AmmoOrbit : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D collidedObject)
 	{
 		if (collidedObject.gameObject.tag == "ammo") {
-			int ammoState = collidedObject.gameObject.GetComponent<Ammo>().state;
+			Ammo ammo = collidedObject.gameObject.GetComponent<Ammo>();
 
-			if(ammoState == 0 || collidedObject.gameObject.GetComponent<Ammo>().playerID == playerID)
+			if(ammo.state == Ammo.State.Idle || ammo.playerID == playerID)
 			{
 				collidedObject.gameObject.GetComponent<BoxCollider2D>().enabled = false;
 				collidedObject.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
 				OrbitList.Add(collidedObject.gameObject);
-				collidedObject.gameObject.GetComponent<Ammo>().state = 1;
-				collidedObject.gameObject.GetComponent<Ammo>().playerID = playerID;
+				ammo.state = Ammo.State.Orbiting;
+				ammo.playerID = playerID;
 
 			}
 

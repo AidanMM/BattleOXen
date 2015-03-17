@@ -4,12 +4,10 @@ using System.Collections;
 public class Ammo : MonoBehaviour {
 
 	public int playerID;
-	public int state = 0;
+	public enum State {Idle, Orbiting, Thrown};
+	public State state { get; set; }
 	public Vector2 goalPoint = new Vector2(0,0);
 	private Vector2 dir = new Vector2(0,0);
-	//0 -> idle
-	//1 -> orbiting
-	//2 -> thrown
 
 	// Use this for initialization
 	void Start () {
@@ -18,7 +16,7 @@ public class Ammo : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (state == 1) {
+		if (state == State.Orbiting) {
 			interpolateToGoal ();
 		}
 
@@ -59,19 +57,27 @@ public class Ammo : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D collidedObject)
 	{
-		if ((collidedObject.gameObject.tag == "stageHorizontal" || collidedObject.gameObject.tag == "stageVertical" 
-		    || collidedObject.gameObject.tag =="stageTop") && state == 2) {
-			playerID = -1;
-			state = 0;
-		}
-		if (collidedObject.gameObject.tag == "ammo" && 
-		    	collidedObject.gameObject.GetComponent<Ammo>().playerID != playerID) {
-			state = 0;
-			playerID = -1;
-			collidedObject.gameObject.GetComponent<Ammo>().state = 0;
-
+		if (IsStage(collidedObject.gameObject) && state == State.Thrown) {
+			setIdle();
 		}
 
+		if (IsEnemyAmmo(collidedObject.gameObject)) {
+			setIdle();
+			collidedObject.gameObject.GetComponent<Ammo>().state = State.Idle;
+		}
+	}
+
+	private bool IsStage(GameObject obj) {
+		return obj.tag == "stageHorizontal" || obj.tag == "stageVertical" || obj.tag == "stageTop";
+	}
+
+	private bool IsEnemyAmmo(GameObject obj) {
+		return obj.tag == "ammo" && obj.GetComponent<Ammo> ().playerID != playerID;
+	}
+
+	private void setIdle() {
+		state = State.Idle;
+		playerID = -1;
 	}
 
 }
