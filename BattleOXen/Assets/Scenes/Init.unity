@@ -186,7 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerPrefab: {fileID: 100390, guid: 4868ec5e03e88ce40a59925af0cc7b7d, type: 2}
   DispenserPrefab: {fileID: 102760, guid: 5d2f001c19b4d2041a958c60e3580d46, type: 2}
-  numPlayers: 7
+  numPlayers: 3
 --- !u!4 &392628530
 Transform:
   m_PrefabParentObject: {fileID: 485210, guid: 555102ca2920e7b4cba8b1f7e6f9aca0, type: 2}

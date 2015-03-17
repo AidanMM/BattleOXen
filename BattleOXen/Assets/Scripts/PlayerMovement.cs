@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour {
 	void JoystickJump() {
 		string joystickButton = "J" + playerID + "Jump";
 		if (Input.GetButtonDown (joystickButton) && jumpToggle) {
-			gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, 5000));
+			gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, 3000));
 			numJumps++;
 			if(numJumps >= MAXJUMPS)
 			{

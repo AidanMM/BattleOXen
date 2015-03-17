@@ -146,10 +146,10 @@ public class AmmoOrbit : MonoBehaviour {
 	{
 		if (collidedObject.gameObject.tag == "ammo") {
 			int ammoState = collidedObject.gameObject.GetComponent<Ammo>().state;
-			collidedObject.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-			if(ammoState == 0)
-			{
 
+			if(ammoState == 0 || collidedObject.gameObject.GetComponent<Ammo>().playerID == playerID)
+			{
+				collidedObject.gameObject.GetComponent<BoxCollider2D>().enabled = false;
 				OrbitList.Add(collidedObject.gameObject);
 				collidedObject.gameObject.GetComponent<Ammo>().state = 1;
 				collidedObject.gameObject.GetComponent<Ammo>().playerID = playerID;
