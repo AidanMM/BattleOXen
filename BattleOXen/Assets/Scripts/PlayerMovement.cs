@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour {
 	private const int MAXJUMPS = 2;
 	private int numJumps = MAXJUMPS;
 	private Vector2 acceleration;
-	public int maxVelocity;
 	public int playerID { get; set; }
 
 	// Use this for initialization
@@ -25,6 +24,10 @@ public class PlayerMovement : MonoBehaviour {
 				GetKeyboardInput();
 			}
 		}
+
+		//add gravity
+		acceleration.y = -(float)9.8;
+
 		AddAccelerationForce();
 	}
 
@@ -41,7 +44,7 @@ public class PlayerMovement : MonoBehaviour {
 	void JoystickJump() {
 		string joystickButton = "J" + playerID + "Jump";
 		if (Input.GetButtonDown (joystickButton) && jumpToggle) {
-			gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, 3000));
+			gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, 5000));
 			numJumps++;
 			if(numJumps >= MAXJUMPS)
 			{
@@ -52,6 +55,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	void JoystickMove() {
 		string joystickAxis = "J" + playerID + "LHorizontal";
+		//acceleration.x = Input.GetAxis (joystickAxis) * (50 + ((-gameObject.GetComponent<Rigidbody2D>().velocity.x)/3));
 		acceleration.x = Input.GetAxis (joystickAxis) * 50;
 	}
 
@@ -83,7 +87,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	void AddAccelerationForce() {
 		gameObject.GetComponent<Rigidbody2D>().AddForce(acceleration);
-		gameObject.GetComponent<Rigidbody2D> ().AddTorque (-acceleration.normalized.x * acceleration.magnitude * 5);
+		gameObject.GetComponent<Rigidbody2D> ().AddTorque (-acceleration.normalized.x * acceleration.magnitude * 3);
 	}
 
 	//for debugging

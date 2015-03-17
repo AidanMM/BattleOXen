@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour {
 			player.tag = "player";
 			player.GetComponent<PlayerMovement>().playerID = i;
 			player.GetComponent<AmmoOrbit>().playerID = i;
+			player.GetComponent<Rigidbody2D>().mass = (float)1.2;
+
 		}
 	}
 
