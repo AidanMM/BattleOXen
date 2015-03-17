@@ -29,6 +29,27 @@ public class PlayerMovement : MonoBehaviour {
 		acceleration.y = -(float)9.8;
 
 		AddAccelerationForce();
+
+		switch (playerID) {
+		case 1: 
+			GetComponent<SpriteRenderer>().color = Color.red;
+			break;
+		case 2:
+			GetComponent<SpriteRenderer>().color = Color.blue;
+			break;
+		case 3:
+			GetComponent<SpriteRenderer>().color = Color.yellow;
+			break;
+		case 4:
+			GetComponent<SpriteRenderer>().color = Color.green;
+			break;
+		case -1:
+			GetComponent<SpriteRenderer>().color = Color.gray;
+			break;
+		default:
+			GetComponent<SpriteRenderer>().color = Color.white;
+			break;
+		}
 	}
 
 	void GetJoystickInput() {
