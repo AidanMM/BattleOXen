@@ -20,11 +20,12 @@ public class AmmoEmitter : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		timer++;
 		if ((count < max || max == -1) && timer % frequency == 0) {
 			GameObject ammo = (GameObject)Instantiate(AmmoPrefab);
 			ammo.gameObject.GetComponent<Ammo>().state = Ammo.State.Idle;
+			//GameManager.IgnoreCollisionWithAllPlayers(ammo.GetComponent<BoxCollider2D>(), true);
 			ammo.transform.position = gameObject.transform.position;
 			ammo.gameObject.GetComponent<Rigidbody2D>().AddForce(dir * mag);
 			count++;

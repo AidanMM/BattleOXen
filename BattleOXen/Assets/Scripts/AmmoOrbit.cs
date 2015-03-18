@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class AmmoOrbit : MonoBehaviour {
-
+	public GameObject PlayerPrefab;
 	public GameObject AmmoPrefab;
 	List<GameObject> OrbitList= new List<GameObject> ();
 	float timer = 0;
@@ -41,11 +41,7 @@ public class AmmoOrbit : MonoBehaviour {
 		for(int i = 0; i < InitialOrbitCount; i++)
 		{
 			GameObject ammo = (GameObject)Instantiate(AmmoPrefab);
-			ammo.GetComponent<Ammo>().playerID = playerID;
-			ammo.GetComponent<Ammo>().state = Ammo.State.Orbiting;
-			ammo.GetComponent<BoxCollider2D>().enabled = false;
-			ammo.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
-			ammo.transform.position = gameObject.transform.position;
+			ChangeAmmoState(ammo, Ammo.State.Orbiting);
 			OrbitList.Add(ammo);
 		}
 	}
@@ -105,10 +101,39 @@ public class AmmoOrbit : MonoBehaviour {
 			ammoRigidBody.AddForce(force * 30);
 		}
 		RemoveList.Add (ammo);
-		ammo.GetComponent<SpriteRenderer>().color = Color.green;
-		ammo.GetComponent<Ammo>().state = Ammo.State.Thrown;
-		ammo.GetComponent<Rigidbody2D>().gravityScale = 3.0f;
+
+		ChangeAmmoState (ammo, Ammo.State.Thrown); 
+
 		OrbitList.RemoveAt(indexOf);
+	}
+
+	void ChangeAmmoState(GameObject ammo, Ammo.State state) {
+		ammo.GetComponent<Ammo>().state = state;
+		BoxCollider2D ammoColl = ammo.GetComponent<BoxCollider2D> ();
+		int playerLayer = GameManager.PlayerLayer;
+
+		switch (state) {
+		case Ammo.State.Idle:
+			ammoColl.isTrigger = false;
+			ammo.GetComponent<Ammo>().playerID = -1;
+			//GameManager.IgnoreCollisionWithAllPlayers(ammoColl, true);
+			//Physics2D.IgnoreCollision(ammoColl, gameObject.GetComponent<BoxCollider2D>(), false);
+			break;
+		case Ammo.State.Orbiting:
+			ammoColl.isTrigger = true;
+			GameManager.IgnoreCollisionWithAllPlayers(ammoColl, false);
+			ammo.GetComponent<Ammo>().playerID = playerID;
+			ammo.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+			ammo.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+			ammo.transform.position = gameObject.transform.position;
+			break;
+		case Ammo.State.Thrown:
+			ammoColl.isTrigger = false;
+			//Physics2D.IgnoreCollision(ammoColl, gameObject.GetComponent<BoxCollider2D>()); // Ignore collision with current player
+			ammo.GetComponent<SpriteRenderer>().color = Color.green;
+			ammo.GetComponent<Rigidbody2D>().gravityScale = 3.0f;
+			break;
+		}
 	}
 
 	void Orbit()
@@ -151,7 +176,7 @@ public class AmmoOrbit : MonoBehaviour {
 		for (int i = 0; i < RemoveList.Count; i++) {
 			if(Vector2.Distance(gameObject.transform.position, RemoveList[i].transform.position) > OrbitDistance)
 			{
-				RemoveList[i].GetComponent<BoxCollider2D>().enabled = true;
+				//RemoveList[i].GetComponent<BoxCollider2D>().enabled = true;
 				RemoveList.RemoveAt(i);
 				i++;
 				continue;
@@ -159,22 +184,45 @@ public class AmmoOrbit : MonoBehaviour {
 		}
 	}
 
+	void AmmoKnockback(GameObject ammo) {
+		gameObject.GetComponent<Rigidbody2D> ().AddForce (ammo.GetComponent<Rigidbody2D> ().velocity * 100);
+	}
+
+	void PickupAmmo(GameObject ammo) {
+		print ("picking up");
+		ChangeAmmoState(ammo, Ammo.State.Orbiting);
+		OrbitList.Add (ammo);
+	}
 
 	void OnCollisionEnter2D(Collision2D collidedObject)
 	{
 		if (collidedObject.gameObject.tag == "ammo") {
 			Ammo ammo = collidedObject.gameObject.GetComponent<Ammo>();
-
 			if(ammo.state == Ammo.State.Idle || ammo.playerID == playerID)
 			{
-				collidedObject.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-				collidedObject.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
-				OrbitList.Add(collidedObject.gameObject);
-				ammo.state = Ammo.State.Orbiting;
-				ammo.playerID = playerID;
-
+				PickupAmmo(collidedObject.gameObject);
 			}
 
+		}
+	}
+
+	void OnTriggerEnter2D(Collider2D colliderObject) {
+		if (colliderObject.gameObject.tag == "ammoGhost") {
+			GameObject ammo = colliderObject.gameObject.GetComponent<AmmoGhost>().AmmoParent;
+			print (ammo.GetComponent<Ammo>().state);
+			switch (ammo.GetComponent<Ammo> ().state) {
+			case Ammo.State.Idle:
+				//PickupAmmo(ammo);
+				break;
+			case Ammo.State.Orbiting:
+				// Nothing for now.
+				break;
+			case Ammo.State.Thrown:
+				if (ammo.GetComponent<Ammo>().playerID != playerID) {
+					AmmoKnockback(ammo);
+				}
+				break;
+			}
 		}
 	}
 }

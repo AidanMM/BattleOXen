@@ -8,10 +8,12 @@ public class Ammo : MonoBehaviour {
 	public State state { get; set; }
 	public Vector2 goalPoint = new Vector2(0,0);
 	private Vector2 dir = new Vector2(0,0);
+	public GameObject AmmoGhostPrefab;
 
 	// Use this for initialization
 	void Start () {
-	
+		GameObject ghost = (GameObject)Instantiate (AmmoGhostPrefab, gameObject.transform.position, Quaternion.identity);
+		ghost.GetComponent<AmmoGhost> ().AmmoParent = gameObject;
 	}
 	
 	// Update is called once per frame
@@ -60,22 +62,31 @@ public class Ammo : MonoBehaviour {
 		if (IsStage(collidedObject.gameObject) && state == State.Thrown) {
 			setIdle();
 		}
+	}
 
-		if (IsEnemyAmmo(collidedObject.gameObject)) {
+	void OnTriggerEnter2D(Collider2D colliderObject) {
+		/*if (IsEnemyThrownAmmo(colliderObject.gameObject)) { // Need to work out some kinks first, like how they are still a part of the ammo orbit list.
+			GameObject ammo = colliderObject.gameObject.GetComponent<AmmoGhost>().AmmoParent;
 			setIdle();
-			collidedObject.gameObject.GetComponent<Ammo>().state = State.Idle;
-		}
+			ammo.GetComponent<Ammo>().setIdle();
+			gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+			ammo.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+			ammo.GetComponent<Rigidbody2D>().gravityScale = 3.0f;
+		}*/ 
 	}
 
 	private bool IsStage(GameObject obj) {
 		return obj.tag == "stageHorizontal" || obj.tag == "stageVertical" || obj.tag == "stageTop";
 	}
 
-	private bool IsEnemyAmmo(GameObject obj) {
-		return obj.tag == "ammo" && obj.GetComponent<Ammo> ().playerID != playerID;
+	private bool IsEnemyThrownAmmo(GameObject obj) {
+		return obj.tag == "ammoGhost" &&
+			obj.GetComponent<AmmoGhost> ().AmmoParent.GetComponent<Ammo> ().playerID != playerID &&
+				obj.GetComponent<AmmoGhost> ().AmmoParent.GetComponent<Ammo> ().state == State.Thrown;
 	}
 
-	private void setIdle() {
+	public void setIdle() {
+		gameObject.GetComponent<BoxCollider2D> ().isTrigger = false;
 		state = State.Idle;
 		playerID = -1;
 	}
