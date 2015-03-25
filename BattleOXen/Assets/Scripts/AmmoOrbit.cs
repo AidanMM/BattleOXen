@@ -41,9 +41,27 @@ public class AmmoOrbit : MonoBehaviour {
 		for(int i = 0; i < InitialOrbitCount; i++)
 		{
 			GameObject ammo = (GameObject)Instantiate(AmmoPrefab);
-			ChangeAmmoState(ammo, Ammo.State.Orbiting);
-			OrbitList.Add(ammo);
+			AddAmmoToOrbit(ammo);
 		}
+	}
+
+	public void AddAmmoToOrbit(GameObject ammo) {
+		ChangeAmmoState(ammo, Ammo.State.Orbiting);
+		OrbitList.Add(ammo);
+	}
+
+	public void RemoveAmmoFromOrbit(GameObject ammo, int index, Ammo.State state) {
+		if (state == Ammo.State.Orbiting) { // Something went wrong and this should never happen, so don't do anything.
+			return;
+		}
+
+		ChangeAmmoState (ammo, state); // Could be thrown or idle
+		if (index != -1) {
+			OrbitList.RemoveAt (index);
+		} else {
+			OrbitList.Remove (ammo);
+		}
+
 	}
 
 	void GetJoystickThrow() {
@@ -102,9 +120,10 @@ public class AmmoOrbit : MonoBehaviour {
 		}
 		RemoveList.Add (ammo);
 
-		ChangeAmmoState (ammo, Ammo.State.Thrown); 
+		RemoveAmmoFromOrbit (ammo, indexOf, Ammo.State.Thrown);
 
-		OrbitList.RemoveAt(indexOf);
+		//ChangeAmmoState (ammo, Ammo.State.Thrown); 
+		//OrbitList.RemoveAt(indexOf);
 	}
 
 	void ChangeAmmoState(GameObject ammo, Ammo.State state) {
@@ -116,6 +135,7 @@ public class AmmoOrbit : MonoBehaviour {
 		case Ammo.State.Idle:
 			ammoColl.isTrigger = false;
 			ammo.GetComponent<Ammo>().playerID = -1;
+			ammo.GetComponent<Rigidbody2D>().gravityScale = 3.0f;
 			//GameManager.IgnoreCollisionWithAllPlayers(ammoColl, true);
 			//Physics2D.IgnoreCollision(ammoColl, gameObject.GetComponent<BoxCollider2D>(), false);
 			break;
@@ -189,9 +209,8 @@ public class AmmoOrbit : MonoBehaviour {
 	}
 
 	void PickupAmmo(GameObject ammo) {
-		print ("picking up");
-		ChangeAmmoState(ammo, Ammo.State.Orbiting);
-		OrbitList.Add (ammo);
+		// Could potentially do more things when picking up.
+		AddAmmoToOrbit (ammo);
 	}
 
 	void OnCollisionEnter2D(Collision2D collidedObject)

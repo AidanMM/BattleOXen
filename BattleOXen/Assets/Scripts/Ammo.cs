@@ -9,11 +9,12 @@ public class Ammo : MonoBehaviour {
 	public Vector2 goalPoint = new Vector2(0,0);
 	private Vector2 dir = new Vector2(0,0);
 	public GameObject AmmoGhostPrefab;
+	private GameObject AmmoGhost;
 
 	// Use this for initialization
 	void Start () {
-		GameObject ghost = (GameObject)Instantiate (AmmoGhostPrefab, gameObject.transform.position, Quaternion.identity);
-		ghost.GetComponent<AmmoGhost> ().AmmoParent = gameObject;
+		AmmoGhost = (GameObject)Instantiate (AmmoGhostPrefab, gameObject.transform.position, Quaternion.identity);
+		AmmoGhost.GetComponent<AmmoGhost> ().AmmoParent = gameObject;
 	}
 	
 	// Update is called once per frame
@@ -64,15 +65,22 @@ public class Ammo : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D colliderObject) {
-		/*if (IsEnemyThrownAmmo(colliderObject.gameObject)) { // Need to work out some kinks first, like how they are still a part of the ammo orbit list.
-			GameObject ammo = colliderObject.gameObject.GetComponent<AmmoGhost>().AmmoParent;
-			setIdle();
-			ammo.GetComponent<Ammo>().setIdle();
-			gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-			ammo.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-			ammo.GetComponent<Rigidbody2D>().gravityScale = 3.0f;
-		}*/ 
+	void OnTriggerEnter2D(Collider2D colliderObject) 
+	{
+		if (IsEnemyThrownAmmo (colliderObject.gameObject) && state == State.Orbiting) { // If an enemy thrown ammo hits an orbiting ammo
+			ShieldAmmo(colliderObject);
+		}
+	}
+
+	private void ShieldAmmo(Collider2D colliderObject) {
+		GameObject player = GameObject.Find (playerID.ToString());
+		player.GetComponent<AmmoOrbit>().RemoveAmmoFromOrbit(gameObject, -1, State.Idle);
+		AmmoGhost.SetActive(false);
+		gameObject.SetActive(false);
+		
+		AmmoGhost ghost = colliderObject.gameObject.GetComponent<AmmoGhost>();
+		ghost.AmmoParent.SetActive(false);
+		ghost.gameObject.SetActive(false);
 	}
 
 	private bool IsStage(GameObject obj) {
@@ -87,6 +95,7 @@ public class Ammo : MonoBehaviour {
 
 	public void setIdle() {
 		gameObject.GetComponent<BoxCollider2D> ().isTrigger = false;
+		gameObject.GetComponent<Rigidbody2D>().gravityScale = 3.0f;
 		state = State.Idle;
 		playerID = -1;
 	}
