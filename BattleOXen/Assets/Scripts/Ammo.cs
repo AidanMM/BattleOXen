@@ -75,12 +75,10 @@ public class Ammo : MonoBehaviour {
 	private void ShieldAmmo(Collider2D colliderObject) {
 		GameObject player = GameObject.Find (playerID.ToString());
 		player.GetComponent<AmmoOrbit>().RemoveAmmoFromOrbit(gameObject, -1, State.Idle);
-		AmmoGhost.SetActive(false);
-		gameObject.SetActive(false);
-		
+		DeactivateSelf ();
+
 		AmmoGhost ghost = colliderObject.gameObject.GetComponent<AmmoGhost>();
-		ghost.AmmoParent.SetActive(false);
-		ghost.gameObject.SetActive(false);
+		Deactivate (ghost);
 	}
 
 	private bool IsStage(GameObject obj) {
@@ -91,6 +89,15 @@ public class Ammo : MonoBehaviour {
 		return obj.tag == "ammoGhost" &&
 			obj.GetComponent<AmmoGhost> ().AmmoParent.GetComponent<Ammo> ().playerID != playerID &&
 				obj.GetComponent<AmmoGhost> ().AmmoParent.GetComponent<Ammo> ().state == State.Thrown;
+	}
+	private void DeactivateSelf() {
+		AmmoGhost.SetActive(false);
+		gameObject.SetActive(false);
+	}
+
+	private void Deactivate(AmmoGhost ghost) {
+		ghost.AmmoParent.SetActive(false);
+		ghost.gameObject.SetActive(false);
 	}
 
 	public void setIdle() {
