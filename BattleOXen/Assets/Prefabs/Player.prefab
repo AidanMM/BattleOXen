@@ -15,7 +15,7 @@ GameObject:
   - 114: {fileID: 11456196}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -82,9 +82,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493cd71774099e64c916287f70f9971e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerPrefab: {fileID: 0}
   AmmoPrefab: {fileID: 128264, guid: 56211797f26274c4687332e9a2bf7909, type: 2}
   OrbitDistance: 15
-  InitialOrbitCount: 15
+  InitialOrbitCount: 10
   OrbitSpeed: 3
 --- !u!212 &21287290
 SpriteRenderer:

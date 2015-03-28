@@ -39,7 +39,6 @@ public class GameManager : MonoBehaviour {
 		for (int i = 1; i <= numPlayers; i++) {
 			player = (GameObject)Instantiate (PlayerPrefab, new Vector2 ((i-1) * 50, 10), Quaternion.identity);
 			player.name = i.ToString();
-			player.tag = "player";
 			player.GetComponent<PlayerMovement>().playerID = i;
 			player.GetComponent<AmmoOrbit>().playerID = i;
 			player.GetComponent<Rigidbody2D>().mass = (float)1.2;

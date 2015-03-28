@@ -10,6 +10,13 @@ public class Ammo : MonoBehaviour {
 	private Vector2 dir = new Vector2(0,0);
 	public GameObject AmmoGhostPrefab;
 	private GameObject AmmoGhost;
+	public enum Type {Default, Bomb};
+	public Type type { get; set; }
+	private bool effectActivated;
+	private int effectTimer;
+	private Vector3 bombScale = new Vector3(100, 100, 1);
+	private Vector3 effectPosition;
+
 
 	// Use this for initialization
 	void Start () {
@@ -24,6 +31,16 @@ public class Ammo : MonoBehaviour {
 		}
 
 		UpdateColor ();
+
+		if (effectActivated) {
+			gameObject.transform.position = effectPosition;
+			gameObject.transform.rotation = Quaternion.identity;
+			if (effectTimer > 60) {
+				DeactivateSelf();
+			} else {
+				effectTimer++;
+			}
+		}
 	}
 
 	void interpolateToGoal()
@@ -64,7 +81,7 @@ public class Ammo : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D collidedObject)
 	{
 		if (IsStage(collidedObject.gameObject) && state == State.Thrown) {
-			setIdle();
+			ActivateEffect();
 		}
 	}
 
@@ -73,6 +90,34 @@ public class Ammo : MonoBehaviour {
 		if (IsEnemyThrownAmmo (colliderObject.gameObject) && state == State.Orbiting) { // If an enemy thrown ammo hits an orbiting ammo
 			ShieldAmmo(colliderObject);
 		}
+
+		if (colliderObject.tag == "player" && IsThrownAmmoWithActivatedEffect()){
+			if (type == Type.Bomb) {
+				Explode(colliderObject);
+			}
+		}
+	}
+
+	public void ActivateEffect() {
+		switch (type) {
+		case Type.Default:
+			setIdle ();
+			break;
+		case Type.Bomb:
+			effectPosition = gameObject.transform.position;
+			gameObject.GetComponent<BoxCollider2D> ().isTrigger = true;
+			gameObject.transform.localScale = bombScale;
+			effectActivated = true;
+			break;
+		}
+	}
+
+	private void Explode(Collider2D colliderObject) {
+		colliderObject.gameObject.GetComponent<Rigidbody2D> ().AddForce ((colliderObject.gameObject.transform.position - effectPosition) * 300);
+	}
+
+	private bool IsThrownAmmoWithActivatedEffect() {
+		return state == State.Thrown && effectActivated;
 	}
 
 	private void ShieldAmmo(Collider2D colliderObject) {
