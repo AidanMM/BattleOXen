@@ -23,6 +23,22 @@ public class Ammo : MonoBehaviour {
 			interpolateToGoal ();
 		}
 
+		UpdateColor ();
+	}
+
+	void interpolateToGoal()
+	{
+		float dist = Vector2.Distance (goalPoint, (Vector2)transform.position);
+		if (Mathf.Abs (dist) > 2) {
+			dir = goalPoint - (Vector2)transform.position;
+			dir /= dir.magnitude / 4.0f;
+			transform.position += (Vector3)dir;
+		} else {
+			transform.position = goalPoint;
+		}
+	}
+
+	void UpdateColor() {
 		switch (playerID) {
 		case 1: 
 			GetComponent<SpriteRenderer>().color = Color.red;
@@ -42,19 +58,6 @@ public class Ammo : MonoBehaviour {
 		default:
 			GetComponent<SpriteRenderer>().color = Color.white;
 			break;
-		}
-
-	}
-
-	void interpolateToGoal()
-	{
-		float dist = Vector2.Distance (goalPoint, (Vector2)transform.position);
-		if (Mathf.Abs (dist) > 2) {
-			dir = goalPoint - (Vector2)transform.position;
-			dir /= dir.magnitude / 4.0f;
-			transform.position += (Vector3)dir;
-		} else {
-			transform.position = goalPoint;
 		}
 	}
 
