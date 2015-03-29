@@ -80,8 +80,13 @@ public class Ammo : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D collidedObject)
 	{
-		if (IsStage(collidedObject.gameObject) && state == State.Thrown) {
+		if (IsStage(collidedObject.gameObject) && state == State.Thrown) { // If a thrown ammo hits a wall, activate any effect
 			ActivateEffect();
+		}
+
+		if (collidedObject.gameObject.tag == "player" && state == State.Thrown && type == Type.Bomb && collidedObject.gameObject.name != playerID.ToString()) { 
+			// If a thrown ammo hits a different player and its a bomb, activate bomb effect
+			ActivateBombEffect();
 		}
 	}
 
@@ -104,16 +109,20 @@ public class Ammo : MonoBehaviour {
 			setIdle ();
 			break;
 		case Type.Bomb:
-			effectPosition = gameObject.transform.position;
-			gameObject.GetComponent<BoxCollider2D> ().isTrigger = true;
-			gameObject.transform.localScale = bombScale;
-			effectActivated = true;
+			ActivateBombEffect();
 			break;
 		}
 	}
 
+	private void ActivateBombEffect() {
+		effectPosition = gameObject.transform.position;
+		gameObject.GetComponent<BoxCollider2D> ().isTrigger = true;
+		gameObject.transform.localScale = bombScale;
+		effectActivated = true;
+	}
+
 	private void Explode(Collider2D colliderObject) {
-		colliderObject.gameObject.GetComponent<Rigidbody2D> ().AddForce ((colliderObject.gameObject.transform.position - effectPosition) * 300);
+		colliderObject.gameObject.GetComponent<Rigidbody2D> ().AddForce ((colliderObject.gameObject.transform.position - effectPosition).normalized * 10000);
 	}
 
 	private bool IsThrownAmmoWithActivatedEffect() {
