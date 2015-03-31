@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour {
 	private int numJumps = MAXJUMPS;
 	private Vector2 acceleration;
 	public int playerID { get; set; }
+	public bool lockControls = true;
 
 	// Use this for initialization
 	void Start () {
@@ -17,11 +18,18 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetJoystickNames ().Length > 0) {
-			GetJoystickInput();
+		if (lockControls != true) {
+			if (Input.GetJoystickNames ().Length > 0) {
+				GetJoystickInput ();
+			} else {
+				if (playerID == 1) {
+					GetKeyboardInput ();
+				}
+			}
 		} else {
-			if (playerID == 1) {
-				GetKeyboardInput();
+			if(gameObject.GetComponent<AmmoOrbit>().secondsTimer > 5)
+			{
+				lockControls = false;
 			}
 		}
 
@@ -29,6 +37,34 @@ public class PlayerMovement : MonoBehaviour {
 		acceleration.y = -(float)9.8;
 
 		AddAccelerationForce();
+
+		if (transform.position.magnitude > 200) {
+			GameObject.FindGameObjectWithTag("KO").GetComponent<FadeOut>().Reset();
+			switch (playerID) {
+			case 1: 
+				GameObject.FindGameObjectWithTag("KO").GetComponent<SpriteRenderer>().color =  Color.red;
+				break;
+			case 2:
+				GameObject.FindGameObjectWithTag("KO").GetComponent<SpriteRenderer>().color =  Color.green;
+				break;
+			case 3:
+				GameObject.FindGameObjectWithTag("KO").GetComponent<SpriteRenderer>().color =  Color.blue;
+				break;
+			case 4:
+				GameObject.FindGameObjectWithTag("KO").GetComponent<SpriteRenderer>().color =  Color.yellow;
+				break;
+			case -1:
+				GameObject.FindGameObjectWithTag("KO").GetComponent<SpriteRenderer>().color =  Color.gray;
+				break;
+			default:
+				GameObject.FindGameObjectWithTag("KO").GetComponent<SpriteRenderer>().color =  Color.white;
+				break;
+			}
+
+			this.enabled = false;
+
+			GameObject.FindGameObjectWithTag("MainGO").GetComponent<GameManager>().LastManStanding();
+		}
 		
 	}
 

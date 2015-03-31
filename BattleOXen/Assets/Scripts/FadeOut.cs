@@ -13,6 +13,14 @@ public class FadeOut : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		alpha -= .01f;
-		gameObject.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, alpha);
+		Color oldColor = gameObject.GetComponent<SpriteRenderer> ().color;
+		gameObject.GetComponent<SpriteRenderer> ().color = new Color (oldColor.r, oldColor.g, oldColor.b,alpha);
+
+	}
+
+	public void Reset()
+	{
+		gameObject.GetComponent<SpriteRenderer> ().enabled = true;
+		alpha = 1;
 	}
 }

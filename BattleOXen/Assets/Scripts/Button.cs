@@ -50,7 +50,7 @@ public class Button : MonoBehaviour {
 			if(idle == false)
 			{
 			redCounter++;
-				if(redCounter > 5)
+				if(redCounter > 10)
 				{
 					Application.LoadLevel(DestinationLevel);
 				}
@@ -64,19 +64,19 @@ public class Button : MonoBehaviour {
 	{
 		idle = false;
 		gameObject.GetComponent<SpriteRenderer> ().sprite = Hovered;
-		gameObject.GetComponent<SpriteRenderer> ().color = new Color (1, 1 - redCounter * .2f, 1 - redCounter * .2f, 1.0f);
-		if(Input.GetMouseButtonDown(0))
+		gameObject.GetComponent<SpriteRenderer> ().color = new Color (1 - redCounter * .2f, 1, 1 - redCounter * .2f, 1.0f);
+		if(Input.GetMouseButtonDown(1))
 		{
 			Fire (new Vector2(transform.position.x, transform.position.y), new Vector2(transform.position.x + (40 * (Random.Range(0,2) * 2 - 1)) , transform.position.y + Random.Range(-5,10)));
 		}
-		if (Input.GetMouseButtonDown (1)) {
+		if (Input.GetMouseButtonDown (0)) {
 			Application.LoadLevel(DestinationLevel);
 		}
 	}
 
 	void OnMouseExit()
 	{
-		gameObject.GetComponent<SpriteRenderer> ().color = new Color (0, 0 , 0, 255);
+		gameObject.GetComponent<SpriteRenderer> ().color = new Color (1, 1 , 1, 1);
 		gameObject.GetComponent<SpriteRenderer> ().sprite = Idle;
 		idle = true;
 	}

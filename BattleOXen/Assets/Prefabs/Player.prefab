@@ -71,6 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54552175510bb0646babf9e336c70007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lockControls: 1
 --- !u!114 &11456196
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -87,7 +88,7 @@ MonoBehaviour:
   OrbitDistance: 15
   InitialOrbitCount: 3
   OrbitSpeed: 3
-  secondsTimer: 5
+  secondsTimer: 2
 --- !u!212 &21287290
 SpriteRenderer:
   m_ObjectHideFlags: 1

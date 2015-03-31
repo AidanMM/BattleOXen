@@ -24,6 +24,29 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 
 		ResetLevelOnInput ();
+	
+
+	}
+
+	public void LastManStanding()
+	{
+		int aliveIndex = 0;
+		int deadPlayers = 0;
+		for(int i = 0; i < numPlayers; i++)
+		{
+			if(Players[i].GetComponent<PlayerMovement>().enabled == true)
+			{
+				aliveIndex = i;
+			}
+			else
+			{
+				deadPlayers++;
+			}
+		}
+
+		if (deadPlayers == numPlayers - 1) {
+			GameObject.FindGameObjectWithTag("Winner").GetComponent<ShowWinner>().Begin(Players[aliveIndex]);
+		}
 	}
 
 	void LimitNumPlayers() {
@@ -37,7 +60,7 @@ public class GameManager : MonoBehaviour {
 	void CreatePlayers() {
 		GameObject player;
 		for (int i = 1; i <= numPlayers; i++) {
-			player = (GameObject)Instantiate (PlayerPrefab, new Vector2 ((i-1) * 50, 10), Quaternion.identity);
+			player = (GameObject)Instantiate (PlayerPrefab, new Vector2 ((i-1) * 100 - 150, 10), Quaternion.identity);
 			player.name = i.ToString();
 			player.GetComponent<PlayerMovement>().playerID = i;
 			switch(i)

@@ -12,6 +12,9 @@ TagManager:
   - stage
   - ammoGhost
   - emptyPlayer
+  - KO
+  - Winner
+  - MainGO
   layers:
   - Default
   - TransparentFX

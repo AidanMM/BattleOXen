@@ -74,7 +74,7 @@ public class Ammo : MonoBehaviour {
 			GetComponent<SpriteRenderer>().color = Color.yellow;
 			break;
 		case -1:
-			//GetComponent<SpriteRenderer>().color = Color.gray;
+			GetComponent<SpriteRenderer>().color = Color.gray;
 			break;
 		default:
 			GetComponent<SpriteRenderer>().color = Color.white;
@@ -86,7 +86,7 @@ public class Ammo : MonoBehaviour {
 	{
 		if (IsStage(collidedObject.gameObject) && state == State.Thrown &&
 		    ( (collidedObject.gameObject.GetComponent<PlatformEffector2D>().oneWay == true && 
-		 	gameObject.GetComponent<Rigidbody2D>().velocity.y < 0.0f) ||
+		 	gameObject.GetComponent<Rigidbody2D>().velocity.y <= 0.1f) ||
 		    collidedObject.gameObject.GetComponent<PlatformEffector2D>().oneWay == false)) { // If a thrown ammo hits a wall, activate any effect unless it travels through a one way platform
 			ActivateEffect();
 		}

@@ -29,7 +29,7 @@ public class AmmoOrbit : MonoBehaviour {
 		HandleThrown ();
 		secondsTimer += 1 * Time.deltaTime;
 
-		if (OrbitList.Count > 0) {
+		if (OrbitList.Count > 0 && GetComponent<PlayerMovement>().lockControls == false) {
 			if (Input.GetJoystickNames ().Length > 0) {
 				GetJoystickThrow ();
 			} else {

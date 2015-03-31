@@ -136,7 +136,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -322,21 +322,10 @@ Prefab:
       propertyPath: m_Name
       value: Button 1
       objectReference: {fileID: 0}
-    - target: {fileID: 21294018, guid: 0144ef4d88e057840ba60174f8de9e2b, type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 0e2a8077e1816c345bacb658ad70bb00,
-        type: 3}
-    - target: {fileID: 11411594, guid: 0144ef4d88e057840ba60174f8de9e2b, type: 2}
-      propertyPath: Idle
-      value: 
-      objectReference: {fileID: 21300000, guid: 0e2a8077e1816c345bacb658ad70bb00,
-        type: 3}
-    - target: {fileID: 11411594, guid: 0144ef4d88e057840ba60174f8de9e2b, type: 2}
-      propertyPath: Hovered
-      value: 
-      objectReference: {fileID: 21300000, guid: 493025734032c4b44b4630942d1eb16b,
-        type: 3}
+    - target: {fileID: 114338, guid: 0144ef4d88e057840ba60174f8de9e2b, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0144ef4d88e057840ba60174f8de9e2b, type: 2}
   m_IsPrefabParent: 0
@@ -349,7 +338,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 430744, guid: 3a2bca250fbfff746bfc5024d1dad79a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 60
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 430744, guid: 3a2bca250fbfff746bfc5024d1dad79a, type: 2}
       propertyPath: m_LocalPosition.y
@@ -395,7 +384,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 485210, guid: 555102ca2920e7b4cba8b1f7e6f9aca0, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 70
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 485210, guid: 555102ca2920e7b4cba8b1f7e6f9aca0, type: 2}
       propertyPath: m_LocalPosition.y
@@ -484,17 +473,20 @@ Prefab:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 21294018, guid: 0144ef4d88e057840ba60174f8de9e2b, type: 2}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 21294018, guid: 0144ef4d88e057840ba60174f8de9e2b, type: 2}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 21294018, guid: 0144ef4d88e057840ba60174f8de9e2b, type: 2}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 328fd74158ef4084d9d1d9d15a13d668,
+        type: 3}
+    - target: {fileID: 11411594, guid: 0144ef4d88e057840ba60174f8de9e2b, type: 2}
+      propertyPath: Idle
+      value: 
+      objectReference: {fileID: 21300000, guid: 328fd74158ef4084d9d1d9d15a13d668,
+        type: 3}
+    - target: {fileID: 11411594, guid: 0144ef4d88e057840ba60174f8de9e2b, type: 2}
+      propertyPath: Hovered
+      value: 
+      objectReference: {fileID: 21300000, guid: 048fd363595255142b0eac9c4f2eb5c6,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0144ef4d88e057840ba60174f8de9e2b, type: 2}
   m_IsPrefabParent: 0
@@ -507,7 +499,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 485210, guid: 555102ca2920e7b4cba8b1f7e6f9aca0, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -70
+      value: -55
       objectReference: {fileID: 0}
     - target: {fileID: 485210, guid: 555102ca2920e7b4cba8b1f7e6f9aca0, type: 2}
       propertyPath: m_LocalPosition.y
@@ -631,7 +623,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 430744, guid: 3a2bca250fbfff746bfc5024d1dad79a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -60
+      value: -55
       objectReference: {fileID: 0}
     - target: {fileID: 430744, guid: 3a2bca250fbfff746bfc5024d1dad79a, type: 2}
       propertyPath: m_LocalPosition.y
@@ -707,32 +699,24 @@ Prefab:
       propertyPath: m_Name
       value: Button 2
       objectReference: {fileID: 0}
-    - target: {fileID: 21294018, guid: 0144ef4d88e057840ba60174f8de9e2b, type: 2}
-      propertyPath: m_Sprite
+    - target: {fileID: 11411594, guid: 0144ef4d88e057840ba60174f8de9e2b, type: 2}
+      propertyPath: Hovered
       value: 
-      objectReference: {fileID: 21300000, guid: d8e90ac9f3119c34f931b05148f10b1f,
+      objectReference: {fileID: 21300000, guid: f21548dfd92f5184298356312fa7da5d,
         type: 3}
     - target: {fileID: 11411594, guid: 0144ef4d88e057840ba60174f8de9e2b, type: 2}
       propertyPath: Idle
       value: 
-      objectReference: {fileID: 21300000, guid: d8e90ac9f3119c34f931b05148f10b1f,
+      objectReference: {fileID: 21300000, guid: 216f1306cc3806343abcfc05b2069d03,
+        type: 3}
+    - target: {fileID: 21294018, guid: 0144ef4d88e057840ba60174f8de9e2b, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 216f1306cc3806343abcfc05b2069d03,
         type: 3}
     - target: {fileID: 11411594, guid: 0144ef4d88e057840ba60174f8de9e2b, type: 2}
-      propertyPath: Hovered
-      value: 
-      objectReference: {fileID: 21300000, guid: 45c556bc24b4eaa41b08e5c07abbcefe,
-        type: 3}
-    - target: {fileID: 21294018, guid: 0144ef4d88e057840ba60174f8de9e2b, type: 2}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 21294018, guid: 0144ef4d88e057840ba60174f8de9e2b, type: 2}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 21294018, guid: 0144ef4d88e057840ba60174f8de9e2b, type: 2}
-      propertyPath: m_Color.b
-      value: 1
+      propertyPath: DestinationLevel
+      value: Instructions
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0144ef4d88e057840ba60174f8de9e2b, type: 2}
