@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour {
 				lockControls = false;
 			}
 		}
+		acceleration.y = -(float)9.8;
 
 		AddAccelerationForce();
 

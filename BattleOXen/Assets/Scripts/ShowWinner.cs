@@ -22,7 +22,7 @@ public class ShowWinner : MonoBehaviour {
 				transform.localScale = new Vector3(scaleX * (1 + timer % 1), transform.localScale.y, transform.localScale.z);
 			else
 				transform.localScale = new Vector3(scaleX * (2 - timer % 1), transform.localScale.y, transform.localScale.z);
-			if(timer > 10)
+			if(timer > 4)
 			{
 				Application.LoadLevel(DestinationLevel);
 			}

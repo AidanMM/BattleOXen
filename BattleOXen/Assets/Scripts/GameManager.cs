@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject PlayerPrefab;
 	public GameObject DispenserPrefab;
 	public static GameObject[] Players;
-	public int numPlayers;
+	private int numPlayers;
 	public static int PlayerLayer;
 
 	//private List<GameObject> players;
@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		PlayerLayer = PlayerPrefab.layer;
-		LimitNumPlayers ();
+		GetNumPlayers ();
 		Players = new GameObject[numPlayers];
 		CreatePlayers ();
 		CreateDispenser ();
@@ -49,11 +49,11 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	void LimitNumPlayers() {
-		if (numPlayers > 4) {
-			numPlayers = 4;
-		} else if (numPlayers < 1) {
-			numPlayers = 1;
+	void GetNumPlayers() {
+		if (Input.GetJoystickNames ().Length > 0) {
+			numPlayers = Input.GetJoystickNames ().Length;
+		} else {
+			numPlayers = 2;
 		}
 	}
 

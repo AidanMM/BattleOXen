@@ -34,7 +34,7 @@ public class Ammo : MonoBehaviour {
 			gameObject.transform.position = effectPosition;
 			gameObject.transform.rotation = Quaternion.identity;
 			Color oldColor = gameObject.GetComponent<SpriteRenderer> ().color;
-			gameObject.GetComponent<SpriteRenderer> ().color = new Color (oldColor.r, oldColor.g, oldColor.b,  oldColor.a - .02f);
+			gameObject.GetComponent<SpriteRenderer> ().color = new Color (oldColor.r, oldColor.g, oldColor.b,  oldColor.a - .016f);
 			print (oldColor.a);
 			if (effectTimer > 60) {
 				DeactivateSelf();

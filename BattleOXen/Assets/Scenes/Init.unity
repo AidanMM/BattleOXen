@@ -168,14 +168,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 184526, guid: 555102ca2920e7b4cba8b1f7e6f9aca0, type: 2}
-      propertyPath: m_TagString
-      value: stageVertical
-      objectReference: {fileID: 0}
-    - target: {fileID: 485210, guid: 555102ca2920e7b4cba8b1f7e6f9aca0, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 234
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 555102ca2920e7b4cba8b1f7e6f9aca0, type: 2}
   m_IsPrefabParent: 0
@@ -228,7 +220,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerPrefab: {fileID: 100390, guid: 4868ec5e03e88ce40a59925af0cc7b7d, type: 2}
   DispenserPrefab: {fileID: 102760, guid: 5d2f001c19b4d2041a958c60e3580d46, type: 2}
-  numPlayers: 3
 --- !u!4 &392628530
 Transform:
   m_PrefabParentObject: {fileID: 485210, guid: 555102ca2920e7b4cba8b1f7e6f9aca0, type: 2}
@@ -353,7 +344,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 2188ab31dd8ccff42b6b174aea26e899, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1053981580
@@ -613,19 +604,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 485210, guid: 555102ca2920e7b4cba8b1f7e6f9aca0, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 184526, guid: 555102ca2920e7b4cba8b1f7e6f9aca0, type: 2}
       propertyPath: m_Name
       value: Wall 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 184526, guid: 555102ca2920e7b4cba8b1f7e6f9aca0, type: 2}
-      propertyPath: m_TagString
-      value: stageHorizontal
-      objectReference: {fileID: 0}
-    - target: {fileID: 485210, guid: 555102ca2920e7b4cba8b1f7e6f9aca0, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 234
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 555102ca2920e7b4cba8b1f7e6f9aca0, type: 2}
@@ -662,8 +645,8 @@ Transform:
   - {fileID: 1968315771}
   - {fileID: 1774200001}
   - {fileID: 305097202}
-  - {fileID: 392628530}
   - {fileID: 938030605}
+  - {fileID: 392628530}
   - {fileID: 1387607091}
   - {fileID: 991393009}
   - {fileID: 335592059}
@@ -848,7 +831,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 436940, guid: 4a76e2dd90e2d814f9e44d4237e97fbe, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 191704, guid: 4a76e2dd90e2d814f9e44d4237e97fbe, type: 2}
       propertyPath: m_TagString
