@@ -11,6 +11,7 @@ TagManager:
   - player
   - stage
   - ammoGhost
+  - emptyPlayer
   layers:
   - Default
   - TransparentFX

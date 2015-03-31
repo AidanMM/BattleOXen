@@ -6,13 +6,13 @@ public class FadeIn : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		this.GetComponent<SpriteRenderer> ().color = new Color (255, 255, 255, alpha);
+		this.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, alpha);
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		alpha += .01f;
-		this.GetComponent<SpriteRenderer> ().color = new Color (255, 255, 255, alpha);
+	void FixedUpdate () {
+		alpha += .008f;
+		this.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, alpha);
 	
 	}
 }

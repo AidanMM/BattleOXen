@@ -40,6 +40,29 @@ public class GameManager : MonoBehaviour {
 			player = (GameObject)Instantiate (PlayerPrefab, new Vector2 ((i-1) * 50, 10), Quaternion.identity);
 			player.name = i.ToString();
 			player.GetComponent<PlayerMovement>().playerID = i;
+			switch(i)
+			{
+			case 1:
+				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("redOx", typeof(Sprite)) as Sprite;
+				break;
+			case 2:
+				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("greenOx", typeof(Sprite)) as Sprite;
+				break;
+			case 3:
+				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("blueOx", typeof(Sprite)) as Sprite;
+				break;
+			case 4:
+				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("yellowOx", typeof(Sprite)) as Sprite;
+				break;
+			case 5:
+				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("greenOx", typeof(Sprite)) as Sprite;
+				break;
+		   default:
+				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("redOx", typeof(Sprite)) as Sprite;
+				break;
+			}
+
+			print (player.GetComponent<SpriteRenderer>().sprite);
 			player.GetComponent<AmmoOrbit>().playerID = i;
 			player.GetComponent<Rigidbody2D>().mass = (float)1.2;
 			Players[i-1] = player;

@@ -16,6 +16,7 @@ public class AmmoOrbit : MonoBehaviour {
 	float deadzone = 0.2f;
 	int throwScale = 5000;
 	List<GameObject> RemoveList = new List<GameObject>();
+	public float secondsTimer = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -26,6 +27,8 @@ public class AmmoOrbit : MonoBehaviour {
 	void Update () {
 		Orbit ();
 		HandleThrown ();
+		secondsTimer += 1 * Time.deltaTime;
+
 		if (OrbitList.Count > 0) {
 			if (Input.GetJoystickNames ().Length > 0) {
 				GetJoystickThrow ();
@@ -168,9 +171,18 @@ public class AmmoOrbit : MonoBehaviour {
 			{
 				OrbitList[i].GetComponent<SpriteRenderer>().color = Color.white;
 			}
+			if(secondsTimer >= 5)
+			{
 			OrbitList[i].GetComponent<Ammo>().goalPoint = 
 				new Vector2(gameObject.transform.position.x + Mathf.Cos (((360/(float)OrbitList.Count) * ((float)i + (float)timer / 360) ) * Mathf.Deg2Rad ) * OrbitDistance, 
 				            gameObject.transform.position.y + Mathf.Sin (((360/(float)OrbitList.Count) * ((float)i + (float)timer / 360) ) * Mathf.Deg2Rad ) * OrbitDistance);
+			}
+			else
+			{
+				OrbitList[i].GetComponent<Ammo>().goalPoint = 
+					new Vector2(gameObject.transform.position.x + Mathf.Cos ((( (float)timer / 360) ) * Mathf.Deg2Rad ) * OrbitDistance, 
+					            gameObject.transform.position.y + Mathf.Sin ((( (float)timer / 360) ) * Mathf.Deg2Rad ) * OrbitDistance);
+			}
 			if(OrbitList[i].GetComponent<Ammo>().state == Ammo.State.Idle)
 			{
 				OrbitList.RemoveAt(i);
@@ -218,7 +230,7 @@ public class AmmoOrbit : MonoBehaviour {
 	{
 		if (collidedObject.gameObject.tag == "ammo") {
 			Ammo ammo = collidedObject.gameObject.GetComponent<Ammo>();
-			if(ammo.state == Ammo.State.Idle || ammo.playerID == playerID)
+			if((ammo.state == Ammo.State.Idle || ammo.playerID == playerID) && secondsTimer > 2.0f)
 			{
 				PickupAmmo(collidedObject.gameObject);
 			}

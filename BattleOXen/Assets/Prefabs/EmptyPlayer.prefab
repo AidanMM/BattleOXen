@@ -11,12 +11,11 @@ GameObject:
   - 212: {fileID: 21263410}
   - 50: {fileID: 5048128}
   - 61: {fileID: 6175532}
-  - 114: {fileID: 11466728}
-  - 114: {fileID: 11492088}
   - 114: {fileID: 11493604}
+  - 114: {fileID: 11436680}
   m_Layer: 0
   m_Name: EmptyPlayer
-  m_TagString: Untagged
+  m_TagString: emptyPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,8 +27,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 153620}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -53.9000015, y: 2.79999995, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 1}
+  m_LocalPosition: {x: -43.2247276, y: -15.3677883, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -60,34 +59,20 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: .449999988, y: .449999988}
---- !u!114 &11466728
+  m_Size: {x: 6.69999981, y: 6.69999981}
+--- !u!114 &11436680
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 153620}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54552175510bb0646babf9e336c70007, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a463d4c48809e84282d53c3c0c12b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11492088
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 153620}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 493cd71774099e64c916287f70f9971e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerPrefab: {fileID: 0}
-  AmmoPrefab: {fileID: 128264, guid: 56211797f26274c4687332e9a2bf7909, type: 2}
-  OrbitDistance: 15
-  InitialOrbitCount: 15
-  OrbitSpeed: 3
+  RollTime: 118
+  Direction: -1
 --- !u!114 &11493604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -123,7 +108,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: eaa93d25c5de1a842abd2d20c1939098, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4ab8e9735d8e4864191012d3bec38ba1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

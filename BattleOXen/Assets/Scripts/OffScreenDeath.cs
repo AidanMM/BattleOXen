@@ -11,7 +11,7 @@ public class OffScreenDeath : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Vector3 toCamera = Camera.main.WorldToScreenPoint (transform.position);
-		if (toCamera.x < -100 || toCamera.y < -100 || toCamera.y > 1000) {
+		if (toCamera.x < -60 ||toCamera.x > 900 || toCamera.y < -100 || toCamera.y > 1000) {
 			Destroy(gameObject);
 		}
 

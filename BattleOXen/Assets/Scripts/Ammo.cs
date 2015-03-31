@@ -30,17 +30,21 @@ public class Ammo : MonoBehaviour {
 			interpolateToGoal ();
 		}
 
-		UpdateColor ();
-
 		if (effectActivated) {
 			gameObject.transform.position = effectPosition;
 			gameObject.transform.rotation = Quaternion.identity;
+			Color oldColor = gameObject.GetComponent<SpriteRenderer> ().color;
+			gameObject.GetComponent<SpriteRenderer> ().color = new Color (oldColor.r, oldColor.g, oldColor.b,  oldColor.a - .02f);
+			print (oldColor.a);
 			if (effectTimer > 60) {
 				DeactivateSelf();
 			} else {
 				effectTimer++;
 			}
+			return;
 		}
+
+		UpdateColor ();
 	}
 
 	void interpolateToGoal()
@@ -61,16 +65,16 @@ public class Ammo : MonoBehaviour {
 			GetComponent<SpriteRenderer>().color = Color.red;
 			break;
 		case 2:
-			GetComponent<SpriteRenderer>().color = Color.blue;
-			break;
-		case 3:
-			GetComponent<SpriteRenderer>().color = Color.yellow;
-			break;
-		case 4:
 			GetComponent<SpriteRenderer>().color = Color.green;
 			break;
+		case 3:
+			GetComponent<SpriteRenderer>().color = Color.blue;
+			break;
+		case 4:
+			GetComponent<SpriteRenderer>().color = Color.yellow;
+			break;
 		case -1:
-			GetComponent<SpriteRenderer>().color = Color.gray;
+			//GetComponent<SpriteRenderer>().color = Color.gray;
 			break;
 		default:
 			GetComponent<SpriteRenderer>().color = Color.white;
@@ -80,7 +84,10 @@ public class Ammo : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D collidedObject)
 	{
-		if (IsStage(collidedObject.gameObject) && state == State.Thrown) { // If a thrown ammo hits a wall, activate any effect
+		if (IsStage(collidedObject.gameObject) && state == State.Thrown &&
+		    ( (collidedObject.gameObject.GetComponent<PlatformEffector2D>().oneWay == true && 
+		 	gameObject.GetComponent<Rigidbody2D>().velocity.y < 0.0f) ||
+		    collidedObject.gameObject.GetComponent<PlatformEffector2D>().oneWay == false)) { // If a thrown ammo hits a wall, activate any effect unless it travels through a one way platform
 			ActivateEffect();
 		}
 
