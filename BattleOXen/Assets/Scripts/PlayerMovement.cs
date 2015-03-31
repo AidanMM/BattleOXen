@@ -25,9 +25,6 @@ public class PlayerMovement : MonoBehaviour {
 			}
 		}
 
-		//add gravity
-		acceleration.y = -(float)9.8;
-
 		AddAccelerationForce();
 		
 	}
@@ -57,7 +54,9 @@ public class PlayerMovement : MonoBehaviour {
 	void JoystickMove() {
 		string joystickAxis = "J" + playerID + "LHorizontal";
 		//acceleration.x = Input.GetAxis (joystickAxis) * (50 + ((-gameObject.GetComponent<Rigidbody2D>().velocity.x)/3));
-		acceleration.x = Input.GetAxis (joystickAxis) * 50;
+		float axis = Input.GetAxis (joystickAxis);
+		acceleration.x = axis * (150 + (-axis * gameObject.GetComponent<Rigidbody2D> ().velocity.x));
+
 	}
 
 	void KeyboardJump() {
