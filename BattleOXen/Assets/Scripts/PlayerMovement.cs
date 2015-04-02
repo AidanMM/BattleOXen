@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour {
 				lockControls = false;
 			}
 		}
-		acceleration.y = -(float)9.8;
+		acceleration.y = -(float)25;
 
 		AddAccelerationForce();
 
@@ -69,6 +69,8 @@ public class PlayerMovement : MonoBehaviour {
 	void GetJoystickInput() {
 		JoystickJump ();
 		JoystickMove ();
+		JoyStickDashLeft ();
+		JoyStickDashRight ();
 	}
 
 	void GetKeyboardInput() {
@@ -79,7 +81,7 @@ public class PlayerMovement : MonoBehaviour {
 	void JoystickJump() {
 		string joystickButton = "J" + playerID + "Jump";
 		if (Input.GetButtonDown (joystickButton) && jumpToggle) {
-			gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, 3000));
+			gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, 4000));
 			numJumps++;
 			if(numJumps >= MAXJUMPS)
 			{
@@ -90,10 +92,23 @@ public class PlayerMovement : MonoBehaviour {
 
 	void JoystickMove() {
 		string joystickAxis = "J" + playerID + "LHorizontal";
-		//acceleration.x = Input.GetAxis (joystickAxis) * (50 + ((-gameObject.GetComponent<Rigidbody2D>().velocity.x)/3));
 		float axis = Input.GetAxis (joystickAxis);
 		acceleration.x = axis * (150 + (-axis * gameObject.GetComponent<Rigidbody2D> ().velocity.x));
 
+	}
+
+	void JoyStickDashLeft(){
+		string joystickButton = "J" + playerID + "DashLeft";
+		if (Input.GetButtonDown (joystickButton)) {
+			gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2(4000,0));
+		}
+	}
+	
+	void JoyStickDashRight(){
+		string joystickButton = "J" + playerID + "DashRight";
+		if (Input.GetButtonDown (joystickButton)) {
+			gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2(4000,0));
+		}
 	}
 
 	void KeyboardJump() {
@@ -103,7 +118,7 @@ public class PlayerMovement : MonoBehaviour {
 		
 		if (((Input.GetKeyDown (KeyCode.UpArrow) && !upToggle) || (Input.GetKeyDown (KeyCode.W) && !upToggle)) && jumpToggle) {
 			upToggle = true;
-			gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0,3000));
+			gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0,4000));
 			numJumps++;
 			if(numJumps >= MAXJUMPS)
 			{
@@ -150,6 +165,10 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		if (collidedObject.gameObject.tag == "player") {		// collides with player
+			if (numJumps > 0)
+			{
+				numJumps -= 1;
+			}
 		}
 
 		if (collidedObject.gameObject.tag == "stageVertical") { // Wall jumping mechanic, commenting out for now
