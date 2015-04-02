@@ -80,5 +80,10 @@ public class Button : MonoBehaviour {
 		gameObject.GetComponent<SpriteRenderer> ().sprite = Idle;
 		idle = true;
 	}
+
+	public void NextLevel()
+	{
+		Application.LoadLevel(DestinationLevel);
+	}
 	
 }

@@ -15,6 +15,7 @@ TagManager:
   - KO
   - Winner
   - MainGO
+  - Button
   layers:
   - Default
   - TransparentFX
