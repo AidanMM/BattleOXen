@@ -152,7 +152,8 @@ public class Ammo : MonoBehaviour {
 	private bool IsEnemyThrownAmmo(GameObject obj) {
 		return obj.tag == "ammoGhost" &&
 			obj.GetComponent<AmmoGhost> ().AmmoParent.GetComponent<Ammo> ().playerID != playerID &&
-				obj.GetComponent<AmmoGhost> ().AmmoParent.GetComponent<Ammo> ().state == State.Thrown;
+			obj.GetComponent<AmmoGhost> ().AmmoParent.GetComponent<Ammo> ().state == State.Thrown &&
+			!obj.GetComponent<AmmoGhost> ().AmmoParent.GetComponent<Ammo> ().effectActivated;
 	}
 	private void DeactivateSelf() {
 		AmmoGhost.SetActive(false);

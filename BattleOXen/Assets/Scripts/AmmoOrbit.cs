@@ -219,6 +219,7 @@ public class AmmoOrbit : MonoBehaviour {
 
 	void AmmoKnockback(GameObject ammo) {
 		gameObject.GetComponent<Rigidbody2D> ().AddForce (ammo.GetComponent<Rigidbody2D> ().velocity * 100);
+		timer = 0;
 	}
 
 	void PickupAmmo(GameObject ammo) {
@@ -251,7 +252,7 @@ public class AmmoOrbit : MonoBehaviour {
 				break;
 			case Ammo.State.Thrown:
 				if (ammo.GetComponent<Ammo>().playerID != playerID) {
-					AmmoKnockback(ammo);
+					//AmmoKnockback(ammo);
 				}
 				break;
 			}

@@ -151,13 +151,13 @@ public class PlayerMovement : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D collidedObject)
 	{
-		if (collidedObject.gameObject.tag == "ammo") {
+		/*if (collidedObject.gameObject.tag == "ammo") {
 			int objID = collidedObject.gameObject.GetComponent<Ammo> ().playerID;
 			if (objID >= 0 && objID != playerID) {
 				gameObject.GetComponent<Rigidbody2D> ().AddForce (collidedObject.gameObject.GetComponent<Rigidbody2D> ().velocity * 100);
 				gameObject.GetComponent<AmmoOrbit>().secondsTimer = 0;
 			}
-		}
+		}*/
 
 		if (collidedObject.gameObject.tag == "stageHorizontal") {	// resets jump counter and reenables jumping if you touch a horizontal platform
 			numJumps = 0;
