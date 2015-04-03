@@ -20,7 +20,14 @@ public class AmmoOrbit : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		if (RulesScript.useCustomRules == true) {
+			OrbitDistance = RulesScript.orbitDistance;
+			InitialOrbitCount = (int)Mathf.Floor(RulesScript.initialOrbitCount);
+			OrbitSpeed = RulesScript.orbitSpeed;
+		}
+		//print (RulesScript.initialOrbitCount);
 		SetupOrbit ();
+
 	}
 	
 	// Update is called once per frame
@@ -163,16 +170,17 @@ public class AmmoOrbit : MonoBehaviour {
 	void Orbit()
 	{
 		for (int i = 0; i < OrbitList.Count; i++) {
-			if(i == 0)
+			/*if(i == 0)
 			{
 				OrbitList[i].GetComponent<SpriteRenderer>().color = Color.cyan;
 			}
 			else
 			{
 				OrbitList[i].GetComponent<SpriteRenderer>().color = Color.white;
-			}
+			}*/
 			if(secondsTimer >= 5)
 			{
+			
 			OrbitList[i].GetComponent<Ammo>().goalPoint = 
 				new Vector2(gameObject.transform.position.x + Mathf.Cos (((360/(float)OrbitList.Count) * ((float)i + (float)timer / 360) ) * Mathf.Deg2Rad ) * OrbitDistance, 
 				            gameObject.transform.position.y + Mathf.Sin (((360/(float)OrbitList.Count) * ((float)i + (float)timer / 360) ) * Mathf.Deg2Rad ) * OrbitDistance);
@@ -180,8 +188,11 @@ public class AmmoOrbit : MonoBehaviour {
 			else
 			{
 				OrbitList[i].GetComponent<Ammo>().goalPoint = 
-					new Vector2(gameObject.transform.position.x + Mathf.Cos ((( (float)timer / 360) ) * Mathf.Deg2Rad ) * OrbitDistance, 
-					            gameObject.transform.position.y + Mathf.Sin ((( (float)timer / 360) ) * Mathf.Deg2Rad ) * OrbitDistance);
+					new Vector2(gameObject.transform.position.x + Mathf.Cos (((360/(float)OrbitList.Count) * ((float)i + (float)timer / 360) ) * Mathf.Deg2Rad ) * OrbitDistance, 
+					            gameObject.transform.position.y + Mathf.Sin (((360/(float)OrbitList.Count) * ((float)i + (float)timer / 360) ) * Mathf.Deg2Rad ) * OrbitDistance);
+				/*OrbitList[i].GetComponent<Ammo>().goalPoint = 
+					new Vector2(gameObject.transform.position.x + Mathf.Cos (( (float)timer / 360 + i ) * Mathf.Deg2Rad ) * OrbitDistance, 
+					            gameObject.transform.position.y + Mathf.Sin (( (float)timer / 360 + i ) * Mathf.Deg2Rad ) * OrbitDistance);*/
 			}
 			if(OrbitList[i].GetComponent<Ammo>().state == Ammo.State.Idle)
 			{
@@ -199,8 +210,10 @@ public class AmmoOrbit : MonoBehaviour {
 			dir = -1;
 		}
 
-		timer += gameObject.GetComponent<Rigidbody2D>().angularVelocity / 25 
-			+ (OrbitSpeed * -(float)dir);
+		if (secondsTimer >= 5) {
+			timer += gameObject.GetComponent<Rigidbody2D> ().angularVelocity / 25 
+				+ (OrbitSpeed * -(float)dir);
+		}
 
 	}
 
@@ -242,7 +255,7 @@ public class AmmoOrbit : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D colliderObject) {
 		if (colliderObject.gameObject.tag == "ammoGhost") {
 			GameObject ammo = colliderObject.gameObject.GetComponent<AmmoGhost>().AmmoParent;
-			print (ammo.GetComponent<Ammo>().state);
+			//print (ammo.GetComponent<Ammo>().state);
 			switch (ammo.GetComponent<Ammo> ().state) {
 			case Ammo.State.Idle:
 				//PickupAmmo(ammo);
