@@ -7,17 +7,18 @@ public class Button : MonoBehaviour {
 	public Sprite Hovered;
 	public GameObject projectile;
 	public string DestinationLevel;
-	private float redCounter = 0.0f;
-	bool idle = true;
+	protected float redCounter = 0.0f;
+	protected bool idle = true;
+
 	
 
 	// Use this for initialization
-	void Start () {
+	public void Start () {
 		gameObject.GetComponent<SpriteRenderer>().sprite = Idle;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	public void Update () {
 		if (idle == true && redCounter > 0) {
 			redCounter -= .3f;
 		}
@@ -32,7 +33,7 @@ public class Button : MonoBehaviour {
 
 	}
 
-	void Fire(Vector2 target, Vector2 startPos)
+	public void Fire(Vector2 target, Vector2 startPos)
 	{
 		GameObject ammo = (GameObject)Instantiate(projectile);
 		ammo.transform.position = startPos;
@@ -43,7 +44,7 @@ public class Button : MonoBehaviour {
 	}
 
 
-	void OnCollisionEnter2D(Collision2D collidedObject)
+	public void OnCollisionEnter2D(Collision2D collidedObject)
 	{
 		if (collidedObject.gameObject.tag == "ammo") {
 			gameObject.GetComponent<Rigidbody2D> ().AddForce(collidedObject.gameObject.GetComponent<Rigidbody2D> ().velocity * 10);
@@ -52,7 +53,7 @@ public class Button : MonoBehaviour {
 			redCounter++;
 				if(redCounter > 10)
 				{
-					Application.LoadLevel(DestinationLevel);
+					OnPress();
 				}
 			}
 		}
@@ -60,7 +61,7 @@ public class Button : MonoBehaviour {
 
 	}
 
-	void OnMouseOver()
+	public virtual void OnMouseOver()
 	{
 		idle = false;
 		gameObject.GetComponent<SpriteRenderer> ().sprite = Hovered;
@@ -70,11 +71,11 @@ public class Button : MonoBehaviour {
 			Fire (new Vector2(transform.position.x, transform.position.y), new Vector2(transform.position.x + (40 * (Random.Range(0,2) * 2 - 1)) , transform.position.y + Random.Range(-5,10)));
 		}
 		if (Input.GetMouseButtonDown (0)) {
-			Application.LoadLevel(DestinationLevel);
+			OnPress();
 		}
 	}
 
-	void OnMouseExit()
+	public virtual void OnMouseExit()
 	{
 		gameObject.GetComponent<SpriteRenderer> ().color = new Color (1, 1 , 1, 1);
 		gameObject.GetComponent<SpriteRenderer> ().sprite = Idle;
@@ -83,7 +84,14 @@ public class Button : MonoBehaviour {
 
 	public void NextLevel()
 	{
+
 		Application.LoadLevel(DestinationLevel);
+	}
+
+	public virtual void OnPress()
+	{
+		NextLevel ();
+
 	}
 	
 }
