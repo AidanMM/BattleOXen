@@ -16,6 +16,7 @@ public class AmmoOrbit : MonoBehaviour {
 	int throwScale = 5000;
 	List<GameObject> RemoveList = new List<GameObject>();
 	public float secondsTimer = 0;
+	public int oxColor = -1;
 
 	// Use this for initialization
 	void Start () {
@@ -139,12 +140,12 @@ public class AmmoOrbit : MonoBehaviour {
 	void ChangeAmmoState(GameObject ammo, Ammo.State state) {
 		ammo.GetComponent<Ammo>().state = state;
 		BoxCollider2D ammoColl = ammo.GetComponent<BoxCollider2D> ();
-		int playerLayer = GameManager.PlayerLayer;
 
 		switch (state) {
 		case Ammo.State.Idle:
 			ammoColl.isTrigger = false;
 			ammo.GetComponent<Ammo>().playerID = -1;
+			ammo.GetComponent<Ammo>().oxColor = -1;
 			ammo.GetComponent<Rigidbody2D>().gravityScale = 3.0f;
 			//GameManager.IgnoreCollisionWithAllPlayers(ammoColl, true);
 			//Physics2D.IgnoreCollision(ammoColl, gameObject.GetComponent<BoxCollider2D>(), false);
@@ -153,6 +154,7 @@ public class AmmoOrbit : MonoBehaviour {
 			ammoColl.isTrigger = true;
 			GameManager.IgnoreCollisionWithAllPlayers(ammoColl, false);
 			ammo.GetComponent<Ammo>().playerID = playerID;
+			ammo.GetComponent<Ammo>().oxColor = oxColor;
 			ammo.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
 			ammo.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 			ammo.transform.position = gameObject.transform.position;

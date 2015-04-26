@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour {
 	private int numJumps = MAXJUMPS;
 	private Vector2 acceleration;
 	public int playerID { get; set; }
+	public int oxColor = -1;
 	public bool lockControls = true;
 
 	// Use this for initialization
@@ -38,17 +39,17 @@ public class PlayerMovement : MonoBehaviour {
 
 		if (transform.position.magnitude > 200) {
 			GameObject.FindGameObjectWithTag("KO").GetComponent<FadeOut>().Reset();
-			switch (playerID) {
-			case 1: 
+			switch (oxColor) {
+			case 0: 
 				GameObject.FindGameObjectWithTag("KO").GetComponent<SpriteRenderer>().color =  Color.red;
 				break;
-			case 2:
+			case 1:
 				GameObject.FindGameObjectWithTag("KO").GetComponent<SpriteRenderer>().color =  Color.green;
 				break;
-			case 3:
+			case 2:
 				GameObject.FindGameObjectWithTag("KO").GetComponent<SpriteRenderer>().color =  Color.blue;
 				break;
-			case 4:
+			case 3:
 				GameObject.FindGameObjectWithTag("KO").GetComponent<SpriteRenderer>().color =  Color.yellow;
 				break;
 			case -1:

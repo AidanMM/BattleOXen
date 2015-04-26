@@ -35,17 +35,17 @@ public class ShowWinner : MonoBehaviour {
 		begin = true;
 		Winner = playerThatWon;
 
-		switch (Winner.GetComponent<PlayerMovement>().playerID) {
-		case 1: 
+		switch (Winner.GetComponent<PlayerMovement>().oxColor) {
+		case 0: 
 			GetComponent<SpriteRenderer>().color =  Color.red;
 			break;
-		case 2:
+		case 1:
 			GetComponent<SpriteRenderer>().color =  Color.green;
 			break;
-		case 3:
+		case 2:
 			GetComponent<SpriteRenderer>().color =  Color.blue;
 			break;
-		case 4:
+		case 3:
 			GetComponent<SpriteRenderer>().color =  Color.yellow;
 			break;
 		case -1:

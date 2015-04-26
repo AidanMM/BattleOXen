@@ -353,6 +353,10 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: ef54d23ab6358f84186a67b739ab213b,
         type: 3}
+    - target: {fileID: 11411594, guid: 0144ef4d88e057840ba60174f8de9e2b, type: 2}
+      propertyPath: DestinationLevel
+      value: PlayerSelect
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0144ef4d88e057840ba60174f8de9e2b, type: 2}
   m_IsPrefabParent: 0

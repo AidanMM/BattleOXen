@@ -16,6 +16,7 @@ public class Ammo : MonoBehaviour {
 	private int effectTimer;
 	private Vector3 bombScale = new Vector3(100, 100, 1);
 	private Vector3 effectPosition;
+	public int oxColor = -1;
 
 
 	// Use this for initialization
@@ -60,17 +61,17 @@ public class Ammo : MonoBehaviour {
 	}
 
 	void UpdateColor() {
-		switch (playerID) {
-		case 1: 
+		switch (oxColor) {
+		case 0: 
 			GetComponent<SpriteRenderer>().color = Color.red;
 			break;
-		case 2:
+		case 1:
 			GetComponent<SpriteRenderer>().color = Color.green;
 			break;
-		case 3:
+		case 2:
 			GetComponent<SpriteRenderer>().color = Color.blue;
 			break;
-		case 4:
+		case 3:
 			GetComponent<SpriteRenderer>().color = Color.yellow;
 			break;
 		case -1:

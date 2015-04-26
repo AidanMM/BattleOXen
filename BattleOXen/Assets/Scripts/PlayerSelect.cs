@@ -4,10 +4,11 @@ using System.Collections;
 public class PlayerSelect : MonoBehaviour {
 	public bool joined = false;
 	public bool ready = false;
+	public int id;
 	string joystickButton;
 	string joystickAxis;
 	Sprite[] oxen;
-	int index = 0;
+	public int index = 0;
 	float deadzone = 0.2f;
 	bool changing = false;
 

@@ -7,13 +7,14 @@ public class GameManager : MonoBehaviour {
 	public GameObject DispenserPrefab;
 	public static GameObject[] Players;
 	private int numPlayers;
-	public static int PlayerLayer;
+	private PlayerSelectObject p;
 
 	//private List<GameObject> players;
 
 	// Use this for initialization
 	void Start () {
-		PlayerLayer = PlayerPrefab.layer;
+		p = GameObject.Find ("PlayerSelectObject").GetComponent<PlayerSelectObject>();
+
 		GetNumPlayers ();
 		Players = new GameObject[numPlayers];
 		CreatePlayers ();
@@ -51,7 +52,7 @@ public class GameManager : MonoBehaviour {
 
 	void GetNumPlayers() {
 		if (Input.GetJoystickNames ().Length > 0) {
-			numPlayers = Input.GetJoystickNames ().Length;
+			numPlayers = p.pid.Count;
 		} else {
 			numPlayers = 2;
 		}
@@ -59,25 +60,27 @@ public class GameManager : MonoBehaviour {
 
 	void CreatePlayers() {
 		GameObject player;
-		for (int i = 1; i <= numPlayers; i++) {
-			player = (GameObject)Instantiate (PlayerPrefab, new Vector2 ((i-1) * 100 - 150, 10), Quaternion.identity);
-			player.name = i.ToString();
-			player.GetComponent<PlayerMovement>().playerID = i;
-			switch(i)
+		for (int i = 0; i < numPlayers; i++) {
+			int id = p.pid[i];
+			player = (GameObject)Instantiate (PlayerPrefab, new Vector2 ((i) * 100 - 150, 10), Quaternion.identity);
+			player.name = id.ToString();
+			player.GetComponent<PlayerMovement>().playerID = id;
+			player.GetComponent<PlayerMovement>().oxColor = p.oxColors[i];
+			switch(p.oxColors[i])
 			{
-			case 1:
+			case 0:
 				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/redOx", typeof(Sprite)) as Sprite;
 				break;
-			case 2:
+			case 1:
 				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/greenOx", typeof(Sprite)) as Sprite;
 				break;
-			case 3:
+			case 2:
 				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/blueOx", typeof(Sprite)) as Sprite;
 				break;
-			case 4:
+			case 3:
 				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/yellowOx", typeof(Sprite)) as Sprite;
 				break;
-			case 5:
+			case 4:
 				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/greenOx", typeof(Sprite)) as Sprite;
 				break;
 		   default:
@@ -86,9 +89,10 @@ public class GameManager : MonoBehaviour {
 			}
 
 			print (player.GetComponent<SpriteRenderer>().sprite);
-			player.GetComponent<AmmoOrbit>().playerID = i;
+			player.GetComponent<AmmoOrbit>().playerID = id;
+			player.GetComponent<AmmoOrbit>().oxColor = p.oxColors[i];
 			player.GetComponent<Rigidbody2D>().mass = (float)1.2;
-			Players[i-1] = player;
+			Players[i] = player;
 		}
 	}
 
