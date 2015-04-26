@@ -42,22 +42,22 @@ public class AmmoEmitter : MonoBehaviour {
 				switch(i)
 				{
 				case 1:
-					AmmoPrefab.GetComponent<SpriteRenderer>().sprite = Resources.Load("redOx", typeof(Sprite)) as Sprite;
+					AmmoPrefab.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/redOx", typeof(Sprite)) as Sprite;
 					break;
 				case 2:
-					AmmoPrefab.GetComponent<SpriteRenderer>().sprite = Resources.Load("greenOx", typeof(Sprite)) as Sprite;
+                    AmmoPrefab.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/greenOx", typeof(Sprite)) as Sprite;
 					break;
 				case 3:
-					AmmoPrefab.GetComponent<SpriteRenderer>().sprite = Resources.Load("blueOx", typeof(Sprite)) as Sprite;
+                    AmmoPrefab.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/blueOx", typeof(Sprite)) as Sprite;
 					break;
 				case 4:
-					AmmoPrefab.GetComponent<SpriteRenderer>().sprite = Resources.Load("yellowOx", typeof(Sprite)) as Sprite;
+                    AmmoPrefab.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/yellowOx", typeof(Sprite)) as Sprite;
 					break;
 				case 5:
-					AmmoPrefab.GetComponent<SpriteRenderer>().sprite = Resources.Load("greenOx", typeof(Sprite)) as Sprite;
+                    AmmoPrefab.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/greenOx", typeof(Sprite)) as Sprite;
 					break;
 				default:
-					AmmoPrefab.GetComponent<SpriteRenderer>().sprite = Resources.Load("redOx", typeof(Sprite)) as Sprite;
+                    AmmoPrefab.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/redOx", typeof(Sprite)) as Sprite;
 					break;
 				}
 				if(Random.Range(0,2) == 1)
