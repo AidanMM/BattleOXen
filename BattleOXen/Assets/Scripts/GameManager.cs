@@ -66,22 +66,22 @@ public class GameManager : MonoBehaviour {
 			switch(i)
 			{
 			case 1:
-				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("redOx", typeof(Sprite)) as Sprite;
+				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/redOx", typeof(Sprite)) as Sprite;
 				break;
 			case 2:
-				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("greenOx", typeof(Sprite)) as Sprite;
+				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/greenOx", typeof(Sprite)) as Sprite;
 				break;
 			case 3:
-				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("blueOx", typeof(Sprite)) as Sprite;
+				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/blueOx", typeof(Sprite)) as Sprite;
 				break;
 			case 4:
-				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("yellowOx", typeof(Sprite)) as Sprite;
+				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/yellowOx", typeof(Sprite)) as Sprite;
 				break;
 			case 5:
-				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("greenOx", typeof(Sprite)) as Sprite;
+				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/greenOx", typeof(Sprite)) as Sprite;
 				break;
 		   default:
-				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("redOx", typeof(Sprite)) as Sprite;
+				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/redOx", typeof(Sprite)) as Sprite;
 				break;
 			}
 

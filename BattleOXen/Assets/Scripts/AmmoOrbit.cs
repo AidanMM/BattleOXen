@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class AmmoOrbit : MonoBehaviour {
-	public GameObject PlayerPrefab;
 	public GameObject AmmoPrefab;
 	List<GameObject> OrbitList= new List<GameObject> ();
 	float timer = 0;
