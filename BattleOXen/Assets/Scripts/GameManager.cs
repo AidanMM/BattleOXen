@@ -87,8 +87,6 @@ public class GameManager : MonoBehaviour {
 				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/redOx", typeof(Sprite)) as Sprite;
 				break;
 			}
-
-			print (player.GetComponent<SpriteRenderer>().sprite);
 			player.GetComponent<AmmoOrbit>().playerID = id;
 			player.GetComponent<AmmoOrbit>().oxColor = p.oxColors[i];
 			player.GetComponent<Rigidbody2D>().mass = (float)1.2;

@@ -486,7 +486,7 @@ InputManager:
     axis: 0
     joyNum: 4
   - serializedVersion: 3
-    m_Name: J1DashLeft
+    m_Name: J1LB
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -502,7 +502,7 @@ InputManager:
     axis: 0
     joyNum: 1
   - serializedVersion: 3
-    m_Name: J2DashLeft
+    m_Name: J2LB
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -518,7 +518,7 @@ InputManager:
     axis: 0
     joyNum: 2
   - serializedVersion: 3
-    m_Name: J3DashLeft
+    m_Name: J3LB
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -534,7 +534,7 @@ InputManager:
     axis: 0
     joyNum: 3
   - serializedVersion: 3
-    m_Name: J4DashLeft
+    m_Name: J4LB
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -550,7 +550,7 @@ InputManager:
     axis: 0
     joyNum: 4
   - serializedVersion: 3
-    m_Name: J1DashRight
+    m_Name: J1RB
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -566,11 +566,11 @@ InputManager:
     axis: 0
     joyNum: 1
   - serializedVersion: 3
-    m_Name: J2DashRight
+    m_Name: J2RB
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: joystick 1 button 5
+    positiveButton: joystick 2 button 5
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
@@ -582,7 +582,7 @@ InputManager:
     axis: 0
     joyNum: 2
   - serializedVersion: 3
-    m_Name: J3DashRight
+    m_Name: J3RB
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -598,7 +598,7 @@ InputManager:
     axis: 0
     joyNum: 3
   - serializedVersion: 3
-    m_Name: J4DashRight
+    m_Name: J4RB
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 

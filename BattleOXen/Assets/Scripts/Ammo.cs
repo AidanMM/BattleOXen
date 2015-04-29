@@ -36,7 +36,6 @@ public class Ammo : MonoBehaviour {
 			gameObject.transform.rotation = Quaternion.identity;
 			Color oldColor = gameObject.GetComponent<SpriteRenderer> ().color;
 			gameObject.GetComponent<SpriteRenderer> ().color = new Color (oldColor.r, oldColor.g, oldColor.b,  oldColor.a - .016f);
-			print (oldColor.a);
 			if (effectTimer > 60) {
 				DeactivateSelf();
 			} else {
@@ -171,6 +170,7 @@ public class Ammo : MonoBehaviour {
 		gameObject.GetComponent<Rigidbody2D>().gravityScale = 3.0f;
 		state = State.Idle;
 		playerID = -1;
+		oxColor = -1;
 	}
 
 }
