@@ -11,6 +11,11 @@ public class PlayerSelect : MonoBehaviour {
 	public int index = 0;
 	float deadzone = 0.2f;
 	bool changing = false;
+	public GameObject PlayerStatusPrefab;
+	private GameObject playerStatus;
+	private Sprite joinedSprite;
+	private Sprite readySprite;
+
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +23,15 @@ public class PlayerSelect : MonoBehaviour {
 		joystickAxis = "J" + gameObject.name + "LHorizontal";
 		oxen = Resources.LoadAll<Sprite>("Oxen/");
 		Reorder ();
+
+		playerStatus = (GameObject)Instantiate (PlayerStatusPrefab, new Vector3 (
+			gameObject.transform.position.x, 
+			gameObject.transform.position.y + 4.8f, 
+			gameObject.transform.position.z), Quaternion.identity);
+
+		joinedSprite = Resources.Load<Sprite> ("PlayerSelect/joined");
+		readySprite = Resources.Load<Sprite> ("PlayerSelect/ready");
+		print (joinedSprite);
 	}
 	
 	// Update is called once per frame
@@ -42,9 +56,10 @@ public class PlayerSelect : MonoBehaviour {
 				}
 			}
 		} else {
-			if (Input.GetButtonDown(joystickButton)) {
+			if (Input.GetButtonDown(joystickButton) || Input.GetKeyDown(KeyCode.Space)) {
 				UpdateSprite ();
 				joined = true;
+				UpdateStatus();
 			}
 		}
 	}
@@ -70,5 +85,15 @@ public class PlayerSelect : MonoBehaviour {
 		}
 
 		gameObject.GetComponent<SpriteRenderer>().sprite = oxen[index];
+	}
+
+	void UpdateStatus() {
+		if (ready) {
+			playerStatus.GetComponent<SpriteRenderer>().sprite = readySprite;
+		} else if (joined) {
+			playerStatus.GetComponent<SpriteRenderer>().sprite = joinedSprite;
+		} else {
+			playerStatus.GetComponent<SpriteRenderer>().sprite = null;
+		}
 	}
 }
