@@ -7,6 +7,7 @@ public class AmmoEmitter : MonoBehaviour {
 	public GameObject AmmoPrefab;
 	public Vector2 dir;
 	public Vector2 varying;
+    private Animator anim;
 	public int mag;
 	public int frequency;
 	public int max = 10;
@@ -14,16 +15,21 @@ public class AmmoEmitter : MonoBehaviour {
 	//-1 for count will make it spawn infinetly
 	private int count = 0;
 	private int timer = 0;
+    private int frameCount = 0;
 
 	// Use this for initialization
 	void Start () {
-
+        anim = GetComponent<Animator>();
+        anim.speed = 0;
+        
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 		timer++;
 		if ((count < max || max == -1) && timer % frequency == 0) {
+            anim.speed = 2;
+            frameCount = timer;
 			GameObject ammo = (GameObject)Instantiate(AmmoPrefab);
 			ammo.transform.position = gameObject.transform.position;
 			Vector2 randomDir = new Vector2(Random.Range(0, varying.x), Random.Range(0,varying.y));
@@ -69,5 +75,9 @@ public class AmmoEmitter : MonoBehaviour {
 				}
 			}
 		}
+        if (timer > frameCount + 8 )
+        {
+            anim.speed = 0;
+        }
 	}
 }
