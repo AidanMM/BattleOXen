@@ -34,6 +34,8 @@ public class ShowWinner : MonoBehaviour {
 		GetComponent<SpriteRenderer> ().enabled = true;
 		begin = true;
 		Winner = playerThatWon;
+		Winner.GetComponent<PlayerMovement> ().gameover = true;
+
 
 		switch (Winner.GetComponent<PlayerMovement>().oxColor) {
 		case 0: 
