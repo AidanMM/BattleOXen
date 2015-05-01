@@ -70,8 +70,8 @@ public class PlayerMovement : MonoBehaviour {
 	void GetJoystickInput() {
 		JoystickJump ();
 		JoystickMove ();
-		JoyStickDashLeft ();
-		JoyStickDashRight ();
+		//JoyStickDashLeft ();
+		//JoyStickDashRight ();
 	}
 
 	void GetKeyboardInput() {
@@ -98,7 +98,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	}
 
-	void JoyStickDashLeft(){
+	/*void JoyStickDashLeft(){
 		string joystickButton = "J" + playerID + "DashLeft";
 		if (Input.GetButtonDown (joystickButton)) {
 			gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2(4000,0));
@@ -110,7 +110,7 @@ public class PlayerMovement : MonoBehaviour {
 		if (Input.GetButtonDown (joystickButton)) {
 			gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2(4000,0));
 		}
-	}
+	}*/
 
 	void KeyboardJump() {
 		if (Input.GetKeyUp (KeyCode.UpArrow) || Input.GetKeyUp (KeyCode.W)) {

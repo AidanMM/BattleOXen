@@ -17,6 +17,7 @@ public class AmmoOrbit : MonoBehaviour {
 	List<GameObject> RemoveList = new List<GameObject>();
 	public float secondsTimer = 0;
 	public int oxColor = -1;
+	private bool supered = false;
 
 	// Use this for initialization
 	void Start () {
@@ -38,6 +39,7 @@ public class AmmoOrbit : MonoBehaviour {
 
 		if (OrbitList.Count > 0 && GetComponent<PlayerMovement>().lockControls == false) {
 			if (Input.GetJoystickNames ().Length > 0) {
+				GetJoystickSuper();
 				GetJoystickThrow ();
 			} else {
 				if (playerID == 1) {
@@ -73,6 +75,42 @@ public class AmmoOrbit : MonoBehaviour {
 			OrbitList.Remove (ammo);
 		}
 
+	}
+
+	void GetJoystickSuper() {
+		string joystickLB = "J" + playerID + "LB";
+		string joystickRB = "J" + playerID + "RB";
+		if (Input.GetButton (joystickLB) && Input.GetButton (joystickRB) && !supered) {
+			print ("SUPER");
+			supered = true;
+			SuperMove();
+		} else {
+			supered = false;
+		}
+	}
+
+	void SuperMove() {
+		Rigidbody2D ammoRigidBody;
+
+		GameObject ammo;
+		Vector3 ammoPos;
+		Vector3 playerPos;
+		Vector3 force;
+		for (int i = 0; i < OrbitList.Count; i++) {
+			ammo = OrbitList[i];
+			ammoRigidBody = ammo.transform.GetComponent<Rigidbody2D>();
+			ammoRigidBody.velocity = Vector2.zero;
+
+			ammoPos = ammo.transform.position;
+			playerPos = gameObject.transform.position;
+			force = ammoPos - playerPos;
+			force.Normalize();
+			ammoRigidBody.AddForce(force * throwScale);
+
+			RemoveList.Add (ammo);
+			
+			RemoveAmmoFromOrbit (ammo, i, Ammo.State.Thrown);
+		}
 	}
 
 	void GetJoystickThrow() {
