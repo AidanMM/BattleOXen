@@ -39,6 +39,11 @@ public class AmmoEmitter : MonoBehaviour {
 			{
                 ammo.gameObject.GetComponent<SpriteRenderer>().sortingOrder = -5;
 				ammo.gameObject.GetComponent<Ammo>().state = Ammo.State.Idle;
+                if (Random.Range(0, 5) == 4)
+                {
+                    ammo.gameObject.GetComponent<Ammo>().type = Ammo.Type.Bomb;
+                    ammo.gameObject.GetComponent<SpriteRenderer>().sprite = ammo.gameObject.GetComponent<Ammo>().bombSprite;
+                }
 				//GameManager.IgnoreCollisionWithAllPlayers(ammo.GetComponent<BoxCollider2D>(), true);
 			}
 			count++;
