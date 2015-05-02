@@ -37,7 +37,7 @@ public class PlayerSelect : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (joined) {
-			if (Input.GetButtonDown(joystickButton)) {
+			if (Input.GetButtonDown(joystickButton) || Input.GetKeyDown(KeyCode.Space)) {
 				ready = !ready;
 			} else if (!ready) {
 				float axis = Input.GetAxis (joystickAxis);

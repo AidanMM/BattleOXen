@@ -15,7 +15,5 @@ public class OffScreenDeath : MonoBehaviour {
 		    || toCamera.y < -100 || toCamera.y > 1000) {
 			Destroy(gameObject);
 		}
-		print (Screen.width);
-
 	}
 }

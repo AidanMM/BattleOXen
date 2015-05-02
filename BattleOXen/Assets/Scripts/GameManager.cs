@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 	public GameObject PlayerPrefab;
-	public GameObject DispenserPrefab;
 	public static GameObject[] Players;
 	private int numPlayers;
 	private PlayerSelectObject p;
@@ -18,15 +17,11 @@ public class GameManager : MonoBehaviour {
 		GetNumPlayers ();
 		Players = new GameObject[numPlayers];
 		CreatePlayers ();
-		CreateDispenser ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
 		ResetLevelOnInput ();
-	
-
 	}
 
 	public void LastManStanding()
@@ -54,7 +49,7 @@ public class GameManager : MonoBehaviour {
 		if (Input.GetJoystickNames ().Length > 0) {
 			numPlayers = p.pid.Count;
 		} else {
-			numPlayers = 2;
+			numPlayers = 4;
 		}
 	}
 
@@ -62,7 +57,9 @@ public class GameManager : MonoBehaviour {
 		GameObject player;
 		for (int i = 0; i < numPlayers; i++) {
 			int id = p.pid[i];
-			player = (GameObject)Instantiate (PlayerPrefab, new Vector2 ((i) * 100 - 150, 10), Quaternion.identity);
+			int offset = (i+1) % 2 == 0 ? 1 : -1;
+			float x = offset * 60 * ((int)(i+2)/2);
+			player = (GameObject)Instantiate (PlayerPrefab, new Vector2 (x, -80), Quaternion.identity);
 			player.name = id.ToString();
 			player.GetComponent<PlayerMovement>().playerID = id;
 			player.GetComponent<PlayerMovement>().oxColor = p.oxColors[i];
@@ -92,10 +89,6 @@ public class GameManager : MonoBehaviour {
 			player.GetComponent<Rigidbody2D>().mass = (float)1.2;
 			Players[i] = player;
 		}
-	}
-
-	void CreateDispenser() {
-		Instantiate (DispenserPrefab, new Vector2 (-1, 20), Quaternion.identity);
 	}
 
 	void ResetLevelOnInput()
