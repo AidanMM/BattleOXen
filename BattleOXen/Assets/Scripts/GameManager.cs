@@ -71,7 +71,6 @@ public class GameManager : MonoBehaviour {
 			player.GetComponent<AmmoOrbit>().oxColor = p.oxColors[i];
 			player.GetComponent<Rigidbody2D>().mass = (float)1.2;
 			stocks[i] = GameObject.Find("Stock" + id);
-			print (stocks[i]);
 			stocks[i].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Stock/" + p.oxColors[i]);
 			Players[i] = player;
 		}

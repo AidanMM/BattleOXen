@@ -16,6 +16,8 @@ public class PlayerSelect : MonoBehaviour {
 	private GameObject playerStatus;
 	private Sprite joinedSprite;
 	private Sprite readySprite;
+	private Sprite pressSprite;
+	private GameObject arrows;
 
 
 	// Use this for initialization
@@ -32,6 +34,10 @@ public class PlayerSelect : MonoBehaviour {
 
 		joinedSprite = Resources.Load<Sprite> ("PlayerSelect/joined");
 		readySprite = Resources.Load<Sprite> ("PlayerSelect/ready");
+		pressSprite = gameObject.GetComponent<SpriteRenderer> ().sprite;
+
+		arrows = GameObject.Find ("a" + id);
+		arrows.SetActive (false);
 	}
 	
 	// Update is called once per frame
@@ -46,6 +52,8 @@ public class PlayerSelect : MonoBehaviour {
 				UpdateStatus();
 			} else if (Input.GetButtonDown(joystickBack)) {
 				joined = false;
+				gameObject.transform.localScale = new Vector2(0.75f, 0.75f);
+				UpdateSprite();
 				UpdateStatus();
 			} else if (!ready) {
 				float axis = Input.GetAxis (joystickAxis);
@@ -65,6 +73,7 @@ public class PlayerSelect : MonoBehaviour {
 			}
 		} else {
 			if (Input.GetButtonDown(joystickButton) || Input.GetKeyDown(KeyCode.Space)) {
+				gameObject.transform.localScale = new Vector2(0.75f, 0.75f);
 				UpdateSprite ();
 				joined = true;
 				UpdateStatus();
@@ -92,11 +101,15 @@ public class PlayerSelect : MonoBehaviour {
 
 	void UpdateStatus() {
 		if (ready) {
+			arrows.SetActive(false);
 			playerStatus.GetComponent<SpriteRenderer>().sprite = readySprite;
 		} else if (joined) {
 			playerStatus.GetComponent<SpriteRenderer>().sprite = joinedSprite;
+			arrows.SetActive(true);
 		} else {
-			playerStatus.GetComponent<SpriteRenderer>().sprite = null;
+			arrows.SetActive(false);
+			playerStatus.GetComponent<SpriteRenderer>().sprite = pressSprite;
+
 		}
 	}
 }
