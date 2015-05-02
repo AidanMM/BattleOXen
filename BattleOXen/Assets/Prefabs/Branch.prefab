@@ -14,7 +14,7 @@ GameObject:
   - 251: {fileID: 25196120}
   m_Layer: 0
   m_Name: Branch
-  m_TagString: stage
+  m_TagString: stageHorizontal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

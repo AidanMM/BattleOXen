@@ -171,6 +171,7 @@ public class PlayerMovement : MonoBehaviour {
 			{
 				numJumps -= 1;
 			}
+			jumpToggle = true;
 		}
 
 		if (collidedObject.gameObject.tag == "stageVertical") { // Wall jumping mechanic, commenting out for now
