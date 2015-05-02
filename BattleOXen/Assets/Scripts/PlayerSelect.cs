@@ -22,7 +22,6 @@ public class PlayerSelect : MonoBehaviour {
 		joystickButton = "J" + gameObject.name + "Jump";
 		joystickAxis = "J" + gameObject.name + "LHorizontal";
 		oxen = Resources.LoadAll<Sprite>("Oxen/");
-		Reorder ();
 
 		playerStatus = (GameObject)Instantiate (PlayerStatusPrefab, new Vector3 (
 			gameObject.transform.position.x, 
@@ -62,13 +61,6 @@ public class PlayerSelect : MonoBehaviour {
 				UpdateStatus();
 			}
 		}
-	}
-
-	// Reorder the oxen array
-	void Reorder() {
-		Sprite r = oxen [2];
-		oxen [2] = oxen[0];
-		oxen [0] = r;
 	}
 
 	// Check if joystick has a new valid input

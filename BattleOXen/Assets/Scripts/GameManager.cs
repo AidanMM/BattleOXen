@@ -64,27 +64,7 @@ public class GameManager : MonoBehaviour {
 			player.name = id.ToString();
 			player.GetComponent<PlayerMovement>().playerID = id;
 			player.GetComponent<PlayerMovement>().oxColor = p.oxColors[i];
-			switch(p.oxColors[i])
-			{
-			case 0:
-				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/redOx", typeof(Sprite)) as Sprite;
-				break;
-			case 1:
-				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/greenOx", typeof(Sprite)) as Sprite;
-				break;
-			case 2:
-				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/blueOx", typeof(Sprite)) as Sprite;
-				break;
-			case 3:
-				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/yellowOx", typeof(Sprite)) as Sprite;
-				break;
-			case 4:
-				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/greenOx", typeof(Sprite)) as Sprite;
-				break;
-		   default:
-				player.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/redOx", typeof(Sprite)) as Sprite;
-				break;
-			}
+			player.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Oxen/" + p.oxColors[i]);
 			player.GetComponent<AmmoOrbit>().playerID = id;
 			player.GetComponent<AmmoOrbit>().oxColor = p.oxColors[i];
 			player.GetComponent<Rigidbody2D>().mass = (float)1.2;

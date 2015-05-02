@@ -43,29 +43,9 @@ public class AmmoEmitter : MonoBehaviour {
 			count++;
 
 			if (AmmoPrefab.tag == "emptyPlayer") {
-				int i = Random.Range(1,6);
-				print(i);
-				switch(i)
-				{
-				case 1:
-					AmmoPrefab.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/redOx", typeof(Sprite)) as Sprite;
-					break;
-				case 2:
-                    AmmoPrefab.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/greenOx", typeof(Sprite)) as Sprite;
-					break;
-				case 3:
-                    AmmoPrefab.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/blueOx", typeof(Sprite)) as Sprite;
-					break;
-				case 4:
-                    AmmoPrefab.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/yellowOx", typeof(Sprite)) as Sprite;
-					break;
-				case 5:
-                    AmmoPrefab.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/greenOx", typeof(Sprite)) as Sprite;
-					break;
-				default:
-                    AmmoPrefab.GetComponent<SpriteRenderer>().sprite = Resources.Load("Oxen/redOx", typeof(Sprite)) as Sprite;
-					break;
-				}
+				int i = Random.Range(0,7);
+				AmmoPrefab.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Oxen/" + i);
+
 				if(Random.Range(0,2) == 1)
 				{
 					RollAfterTime RAT = AmmoPrefab.GetComponent<RollAfterTime>();
