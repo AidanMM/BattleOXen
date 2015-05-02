@@ -18,6 +18,7 @@ public class Ammo : MonoBehaviour {
 	private Vector3 effectPosition;
 	public int oxColor = -1;
     public Sprite bombSprite;
+	public bool idleTimer;
 
 
 	// Use this for initialization
@@ -97,6 +98,10 @@ public class Ammo : MonoBehaviour {
 		if (collidedObject.gameObject.tag == "player" && state == State.Thrown && type == Type.Bomb && collidedObject.gameObject.name != playerID.ToString()) { 
 			// If a thrown ammo hits a different player and its a bomb, activate bomb effect
 			ActivateBombEffect();
+		}
+
+		if (collidedObject.gameObject.tag == "ammo" && state == State.Thrown && type == Type.Default) {
+			setIdle();
 		}
     }
 

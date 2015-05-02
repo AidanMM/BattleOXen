@@ -209,7 +209,6 @@ public class AmmoOrbit : MonoBehaviour {
 		case Ammo.State.Thrown:
 			ammoColl.isTrigger = false;
 			//Physics2D.IgnoreCollision(ammoColl, gameObject.GetComponent<BoxCollider2D>()); // Ignore collision with current player
-			ammo.GetComponent<SpriteRenderer>().color = Color.green;
 			ammo.GetComponent<Rigidbody2D>().gravityScale = 3.0f;
 			break;
 		}
