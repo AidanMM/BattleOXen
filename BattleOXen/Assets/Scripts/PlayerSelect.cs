@@ -52,7 +52,7 @@ public class PlayerSelect : MonoBehaviour {
 				UpdateStatus();
 			} else if (Input.GetButtonDown(joystickBack)) {
 				joined = false;
-				gameObject.transform.localScale = new Vector2(0.75f, 0.75f);
+				gameObject.transform.localScale = new Vector2(2.0f, 2.0f);
 				UpdateSprite();
 				UpdateStatus();
 			} else if (!ready) {
