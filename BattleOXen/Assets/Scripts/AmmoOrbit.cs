@@ -26,9 +26,7 @@ public class AmmoOrbit : MonoBehaviour {
 			InitialOrbitCount = (int)Mathf.Floor(RulesScript.initialOrbitCount);
 			OrbitSpeed = RulesScript.orbitSpeed;
 		}
-		//print (RulesScript.initialOrbitCount);
-		SetupOrbit ();
-
+		Invoke ("SetupOrbit", 3);
 	}
 	
 	// Update is called once per frame

@@ -11,13 +11,12 @@ public class PlayerMovement : MonoBehaviour {
 	public int playerID { get; set; }
 	public int oxColor = -1;
 	public Vector2 initPos;
-	public bool gameover = false;
+	public bool gameover = true;
 	public int lives = 3;
 
 	// Use this for initialization
 	void Start () {
-		acceleration = new Vector2 (0, 0);
-		initPos = gameObject.transform.position;
+		Invoke ("Init", 3);
 	}
 	
 	// Update is called once per frame
@@ -72,6 +71,12 @@ public class PlayerMovement : MonoBehaviour {
 	void Respawn() {
 		gameObject.transform.position = initPos;
 		gameObject.SetActive (true);
+	}
+
+	void Init() {
+		acceleration = new Vector2 (0, 0);
+		initPos = gameObject.transform.position;
+		gameover = false;
 	}
 
 	void GetJoystickInput() {
