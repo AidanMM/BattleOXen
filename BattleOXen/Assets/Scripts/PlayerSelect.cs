@@ -46,7 +46,7 @@ public class PlayerSelect : MonoBehaviour {
 			ready = false;
 			UpdateStatus();
 		}
-		if (joined) {
+		else if (joined) {
 			if (Input.GetButtonDown(joystickButton) || Input.GetKeyDown(KeyCode.Space)) {
 				ready = true;
 				UpdateStatus();
