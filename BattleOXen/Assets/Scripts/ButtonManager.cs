@@ -41,15 +41,15 @@ public class ButtonManager : MonoBehaviour {
 
 
 		if(Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S) ||
-		   (axis < -.5f && oldAxis > -.5f))
+		   (axis > .5f && oldAxis < .5f))
 		{
-			index--;
+			index++;
 			index %= ButtonList.Count ();
 		}
 		else if(Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)||
-		        (axis > .5f && oldAxis < .5f))
+		        (axis < -.5f && oldAxis > -.5f))
 		{
-			index++;
+			index--;
 			if(index < 0)
 			{
 				index = ButtonList.Count() - 1;
