@@ -18,6 +18,7 @@ public class PlayerSelect : MonoBehaviour {
 	private Sprite readySprite;
 	private Sprite pressSprite;
 	private GameObject arrows;
+	private GameObject check;
 
 
 	// Use this for initialization
@@ -38,6 +39,9 @@ public class PlayerSelect : MonoBehaviour {
 
 		arrows = GameObject.Find ("a" + id);
 		arrows.SetActive (false);
+
+		check = GameObject.Find ("c" + id);
+		check.SetActive (false);
 	}
 	
 	// Update is called once per frame
@@ -101,13 +105,16 @@ public class PlayerSelect : MonoBehaviour {
 
 	void UpdateStatus() {
 		if (ready) {
+			check.SetActive(true);
 			arrows.SetActive(false);
 			playerStatus.GetComponent<SpriteRenderer>().sprite = readySprite;
 		} else if (joined) {
 			playerStatus.GetComponent<SpriteRenderer>().sprite = joinedSprite;
 			arrows.SetActive(true);
+			check.SetActive(false);
 		} else {
 			arrows.SetActive(false);
+			check.SetActive(false);
 			playerStatus.GetComponent<SpriteRenderer>().sprite = null;
 			gameObject.GetComponent<SpriteRenderer>().sprite = pressSprite;
 
