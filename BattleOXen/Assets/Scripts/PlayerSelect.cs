@@ -7,6 +7,7 @@ public class PlayerSelect : MonoBehaviour {
 	public int id;
 	string joystickButton;
 	string joystickAxis;
+	string joystickBack;
 	Sprite[] oxen;
 	public int index = 0;
 	float deadzone = 0.2f;
@@ -21,6 +22,7 @@ public class PlayerSelect : MonoBehaviour {
 	void Start () {
 		joystickButton = "J" + gameObject.name + "Jump";
 		joystickAxis = "J" + gameObject.name + "LHorizontal";
+		joystickBack = "J" + gameObject.name + "Back";
 		oxen = Resources.LoadAll<Sprite>("Oxen/");
 
 		playerStatus = (GameObject)Instantiate (PlayerStatusPrefab, new Vector3 (
@@ -34,9 +36,13 @@ public class PlayerSelect : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (ready && Input.GetButtonDown(joystickBack)) {
+			ready = false;
+			UpdateStatus();
+		}
 		if (joined) {
 			if (Input.GetButtonDown(joystickButton) || Input.GetKeyDown(KeyCode.Space)) {
-				ready = !ready;
+				ready = true;
 				UpdateStatus();
 			} else if (!ready) {
 				float axis = Input.GetAxis (joystickAxis);
@@ -48,7 +54,7 @@ public class PlayerSelect : MonoBehaviour {
 						} else if (axis > 0) {
 							index++;
 						}
-						UpdateSprite();
+						UpdateSprite(); 
 					}
 				} else {
 					changing = false;
@@ -59,6 +65,8 @@ public class PlayerSelect : MonoBehaviour {
 				UpdateSprite ();
 				joined = true;
 				UpdateStatus();
+			} else if (Input.GetButtonDown(joystickBack)) { 
+				Application.LoadLevel ("ModeSelect");
 			}
 		}
 	}
