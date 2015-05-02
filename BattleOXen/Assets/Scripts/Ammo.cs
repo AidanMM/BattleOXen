@@ -14,10 +14,11 @@ public class Ammo : MonoBehaviour {
 	public Type type { get; set; }
 	private bool effectActivated;
 	private int effectTimer;
-	private Vector3 bombScale = new Vector3(100, 100, 1);
+	private Vector3 bombScale = new Vector3(25, 25, 1);
 	private Vector3 effectPosition;
 	public int oxColor = -1;
     public Sprite bombSprite;
+    public Sprite explosion;
 	public bool idleTimer;
 
 
@@ -39,7 +40,7 @@ public class Ammo : MonoBehaviour {
 			gameObject.transform.rotation = Quaternion.identity;
 			Color oldColor = gameObject.GetComponent<SpriteRenderer> ().color;
 			gameObject.GetComponent<SpriteRenderer> ().color = new Color (oldColor.r, oldColor.g, oldColor.b,  oldColor.a - .016f);
-			if (effectTimer > 60) {
+			if (effectTimer > 30) {
 				DeactivateSelf();
 			} else {
 				effectTimer++;
@@ -132,6 +133,8 @@ public class Ammo : MonoBehaviour {
 	private void ActivateBombEffect() {
 		effectPosition = gameObject.transform.position;
 		gameObject.GetComponent<BoxCollider2D> ().isTrigger = true;
+        gameObject.GetComponent<SpriteRenderer>().sprite = explosion;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
 		gameObject.transform.localScale = bombScale;
 		effectActivated = true;
 	}
