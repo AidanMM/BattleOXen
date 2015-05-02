@@ -8,13 +8,15 @@ public class GameManager : MonoBehaviour {
 	private int numPlayers;
 	private PlayerSelectObject p;
 
+	private GameObject[] stocks;
+
 	//private List<GameObject> players;
 
 	// Use this for initialization
 	void Start () {
 		p = GameObject.Find ("PlayerSelectObject").GetComponent<PlayerSelectObject>();
-		
 		GetNumPlayers ();
+		stocks = new GameObject[numPlayers];
 		Players = new GameObject[numPlayers];
 		CreatePlayers ();
 	}
@@ -68,6 +70,9 @@ public class GameManager : MonoBehaviour {
 			player.GetComponent<AmmoOrbit>().playerID = id;
 			player.GetComponent<AmmoOrbit>().oxColor = p.oxColors[i];
 			player.GetComponent<Rigidbody2D>().mass = (float)1.2;
+			stocks[i] = GameObject.Find("Stock" + id);
+			print (stocks[i]);
+			stocks[i].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Stock/" + p.oxColors[i]);
 			Players[i] = player;
 		}
 	}
