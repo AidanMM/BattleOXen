@@ -5,8 +5,8 @@ public class RulesScript : MonoBehaviour {
 
 	public static float orbitDistance = 15;
 	public static float initialOrbitCount = 3;
-	public static float orbitSpeed = 3;
-	public static bool useCustomRules = false;
+	public static float orbitSpeed = 3; 
+	public static bool useCustomRules = true;
 
 
 	// Use this for initialization

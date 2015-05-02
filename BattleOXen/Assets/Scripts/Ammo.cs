@@ -17,12 +17,14 @@ public class Ammo : MonoBehaviour {
 	private Vector3 bombScale = new Vector3(100, 100, 1);
 	private Vector3 effectPosition;
 	public int oxColor = -1;
+    public Sprite bombSprite;
 
 
 	// Use this for initialization
 	void Start () {
 		AmmoGhost = (GameObject)Instantiate (AmmoGhostPrefab, gameObject.transform.position, Quaternion.identity);
 		AmmoGhost.GetComponent<AmmoGhost> ().AmmoParent = gameObject;
+              
 	}
 	
 	// Update is called once per frame

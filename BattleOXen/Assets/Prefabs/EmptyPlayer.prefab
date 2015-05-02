@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a463d4c48809e84282d53c3c0c12b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RollTime: 115
+  RollTime: 159
   Direction: -1
 --- !u!114 &11493604
 MonoBehaviour:
@@ -108,7 +108,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d8f07d189a81e6b439b93defd6f6232a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4abdb5b738d489344b024ed9d11490a6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

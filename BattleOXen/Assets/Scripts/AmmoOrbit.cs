@@ -54,6 +54,8 @@ public class AmmoOrbit : MonoBehaviour {
 		{
 			GameObject ammo = (GameObject)Instantiate(AmmoPrefab);
 			ammo.GetComponent<Ammo>().type = Ammo.Type.Bomb;
+            print(ammo.GetComponent<Ammo>().bombSprite);
+            ammo.GetComponent<SpriteRenderer>().sprite = ammo.GetComponent<Ammo>().bombSprite;
 			AddAmmoToOrbit(ammo);
 		}
 	}

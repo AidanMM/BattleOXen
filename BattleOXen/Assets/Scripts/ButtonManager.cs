@@ -4,7 +4,7 @@ using System.Linq;
 
 public class ButtonManager : MonoBehaviour {
 
-	IOrderedEnumerable<GameObject> ButtonList;
+	public IOrderedEnumerable<GameObject> ButtonList;
 	int index = 0;
 	string joystickAxis = "J1LVertical";
 	float axis;
@@ -12,7 +12,7 @@ public class ButtonManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		GameObject[] buttonListGet = GameObject.FindGameObjectsWithTag ("Button");
-		ButtonList = buttonListGet.OrderBy(button => -button.transform.position.y);
+		ButtonList = buttonListGet.OrderBy(button => button.transform.position.magnitude);
 	}
 	
 	// Update is called once per frame
@@ -25,11 +25,11 @@ public class ButtonManager : MonoBehaviour {
 		{
 			if( i == index)
 			{
-				ButtonList.ElementAt(i).GetComponent<SpriteRenderer>().color = new Color(0,1,0,1);
+                ButtonList.ElementAt(i).GetComponent<SpriteRenderer>().sprite = ButtonList.ElementAt(i).GetComponent<Button>().Hovered;
 			}
 			else
 			{
-				ButtonList.ElementAt(i).GetComponent<SpriteRenderer>().color = new Color(1,1,1,1);
+                ButtonList.ElementAt(i).GetComponent<SpriteRenderer>().sprite = ButtonList.ElementAt(i).GetComponent<Button>().Idle;
 			}
 		}
 	

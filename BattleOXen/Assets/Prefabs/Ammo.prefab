@@ -73,6 +73,8 @@ MonoBehaviour:
   playerID: -1
   goalPoint: {x: 0, y: 0}
   AmmoGhostPrefab: {fileID: 192184, guid: e0ac082242e0f75468abfb124efc4f72, type: 2}
+  oxColor: -1
+  bombSprite: {fileID: 21300000, guid: deafe0b4efb26d544be3fd12876b6819, type: 3}
 --- !u!212 &21233902
 SpriteRenderer:
   m_ObjectHideFlags: 1
