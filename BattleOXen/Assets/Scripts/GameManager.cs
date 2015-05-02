@@ -12,16 +12,20 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		p = GameObject.Find ("PlayerSelectObject").GetComponent<PlayerSelectObject>();
-
-		GetNumPlayers ();
-		Players = new GameObject[numPlayers];
-		CreatePlayers ();
+		Invoke ("Init", 3);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		ResetLevelOnInput ();
+	}
+
+	private void Init() {
+		p = GameObject.Find ("PlayerSelectObject").GetComponent<PlayerSelectObject>();
+		
+		GetNumPlayers ();
+		Players = new GameObject[numPlayers];
+		CreatePlayers ();
 	}
 
 	public void LastManStanding()
