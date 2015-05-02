@@ -71,6 +71,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	void Respawn() {
 		gameObject.transform.position = initPos;
+        gameObject.transform.rotation = Quaternion.EulerAngles(0, 0, 0);
 		gameObject.SetActive (true);
 	}
 
