@@ -1515,7 +1515,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11495332, guid: 5d2f001c19b4d2041a958c60e3580d46, type: 2}
       propertyPath: frequency
-      value: 150
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 102760, guid: 5d2f001c19b4d2041a958c60e3580d46, type: 2}
       propertyPath: m_Name
