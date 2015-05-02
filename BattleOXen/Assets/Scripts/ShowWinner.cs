@@ -8,20 +8,18 @@ public class ShowWinner : MonoBehaviour {
 	bool begin = false;
 	public string DestinationLevel;
 	private float scaleX = 0;
+    private Sprite[] winnerFrames;
 
 	// Use this for initialization
 	void Start () {
 		scaleX = transform.localScale.x;
+        winnerFrames = Resources.LoadAll<Sprite>("winner/");
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (begin == true) {
 			timer += 1 * Time.deltaTime;
-			if(timer % 2 < 1)
-				transform.localScale = new Vector3(scaleX * (1 + timer % 1), transform.localScale.y, transform.localScale.z);
-			else
-				transform.localScale = new Vector3(scaleX * (2 - timer % 1), transform.localScale.y, transform.localScale.z);
 			if(timer > 4)
 			{
 				Application.LoadLevel(DestinationLevel);
@@ -35,27 +33,7 @@ public class ShowWinner : MonoBehaviour {
 		begin = true;
 		Winner = playerThatWon;
 		Winner.GetComponent<PlayerMovement> ().gameover = true;
+        GetComponent<SpriteRenderer>().sprite = winnerFrames[Winner.GetComponent<PlayerMovement>().oxColor];
 
-
-		switch (Winner.GetComponent<PlayerMovement>().oxColor) {
-		case 0: 
-			GetComponent<SpriteRenderer>().color =  Color.red;
-			break;
-		case 1:
-			GetComponent<SpriteRenderer>().color =  Color.green;
-			break;
-		case 2:
-			GetComponent<SpriteRenderer>().color =  Color.blue;
-			break;
-		case 3:
-			GetComponent<SpriteRenderer>().color =  Color.yellow;
-			break;
-		case -1:
-			GetComponent<SpriteRenderer>().color =  Color.gray;
-			break;
-		default:
-			GetComponent<SpriteRenderer>().color =  Color.white;
-			break;
-		}
 	}
 }

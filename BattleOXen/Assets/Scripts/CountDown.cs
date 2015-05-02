@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CountDown : MonoBehaviour {
 
-	public Sprite Three, Two, One, Go;
+    public Sprite Three, Two, One;
 	int state = 0;
 	private float timer;
 
@@ -26,10 +26,6 @@ public class CountDown : MonoBehaviour {
 			state++;
 		}
 		if (Mathf.Floor (timer) == 3 && state == 2) {
-			gameObject.GetComponent<SpriteRenderer>().sprite = Go;
-			state++;
-		}
-		if (Mathf.Floor (timer) == 4 && state == 3) {
 			Destroy(gameObject);
 		}
 

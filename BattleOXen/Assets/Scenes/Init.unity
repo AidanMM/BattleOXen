@@ -236,11 +236,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463318, guid: be42313691f279e459bb03aaa015ef6c, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 21281754, guid: be42313691f279e459bb03aaa015ef6c, type: 2}
       propertyPath: m_SortingOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 463318, guid: be42313691f279e459bb03aaa015ef6c, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 22.4072857
+      objectReference: {fileID: 0}
+    - target: {fileID: 463318, guid: be42313691f279e459bb03aaa015ef6c, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 22.4072838
+      objectReference: {fileID: 0}
+    - target: {fileID: 463318, guid: be42313691f279e459bb03aaa015ef6c, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 22.4072838
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: be42313691f279e459bb03aaa015ef6c, type: 2}
@@ -1344,11 +1356,32 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 419582, guid: 18d05907935899e4c96921eb372569f2, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 21225818, guid: 18d05907935899e4c96921eb372569f2, type: 2}
       propertyPath: m_SortingOrder
-      value: 4
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 21225818, guid: 18d05907935899e4c96921eb372569f2, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 21225818, guid: 18d05907935899e4c96921eb372569f2, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 95c2da1c1d0aaac4aa86cff2d00764f0,
+        type: 3}
+    - target: {fileID: 419582, guid: 18d05907935899e4c96921eb372569f2, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 30.4254074
+      objectReference: {fileID: 0}
+    - target: {fileID: 419582, guid: 18d05907935899e4c96921eb372569f2, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 30.4254017
+      objectReference: {fileID: 0}
+    - target: {fileID: 419582, guid: 18d05907935899e4c96921eb372569f2, type: 2}
+      propertyPath: m_LocalScale.z
+      value: .304254025
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 18d05907935899e4c96921eb372569f2, type: 2}
@@ -2080,7 +2113,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2003470967}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: cbaab146c00fb4f4a89c8bfeb068794b, type: 3}

@@ -13,10 +13,12 @@ public class PlayerMovement : MonoBehaviour {
 	public Vector2 initPos;
 	public bool gameover = true;
 	public int lives = 3;
+    private Sprite[] KOFrames;
 
 	// Use this for initialization
 	void Start () {
 		Invoke ("Init", 3);
+        KOFrames = Resources.LoadAll<Sprite>("KNOCKOUT");
 	}
 	
 	// Update is called once per frame
@@ -35,27 +37,7 @@ public class PlayerMovement : MonoBehaviour {
 
 			if (transform.position.magnitude > 200) {
 				GameObject.FindGameObjectWithTag ("KO").GetComponent<FadeOut> ().Reset ();
-				switch (oxColor) {
-				case 0: 
-					GameObject.FindGameObjectWithTag ("KO").GetComponent<SpriteRenderer> ().color = Color.red;
-					break;
-				case 1:
-					GameObject.FindGameObjectWithTag ("KO").GetComponent<SpriteRenderer> ().color = Color.green;
-					break;
-				case 2:
-					GameObject.FindGameObjectWithTag ("KO").GetComponent<SpriteRenderer> ().color = Color.blue;
-					break;
-				case 3:
-					GameObject.FindGameObjectWithTag ("KO").GetComponent<SpriteRenderer> ().color = Color.yellow;
-					break;
-				case -1:
-					GameObject.FindGameObjectWithTag ("KO").GetComponent<SpriteRenderer> ().color = Color.gray;
-					break;
-				default:
-					GameObject.FindGameObjectWithTag ("KO").GetComponent<SpriteRenderer> ().color = Color.white;
-					break;
-				}
-
+				GameObject.FindGameObjectWithTag ("KO").GetComponent<SpriteRenderer> ().sprite = KOFrames[oxColor];
 				lives--;
 				GameManager.Lives[playerID-1,lives].SetActive(false);
 				gameObject.SetActive (false);
