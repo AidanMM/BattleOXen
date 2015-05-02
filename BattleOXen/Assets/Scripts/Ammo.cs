@@ -19,14 +19,16 @@ public class Ammo : MonoBehaviour {
 	public int oxColor = -1;
     public Sprite bombSprite;
     public Sprite explosion;
-	public Sprite defaultSprite;
 	public Sprite idleSprite;
+	private Sprite[] coloredSprites;
 
 
 	// Use this for initialization
 	void Start () {
 		AmmoGhost = (GameObject)Instantiate (AmmoGhostPrefab, gameObject.transform.position, Quaternion.identity);
 		AmmoGhost.GetComponent<AmmoGhost> ().AmmoParent = gameObject;
+
+		coloredSprites = Resources.LoadAll<Sprite> ("Bullets/");
               
 	}
 	
@@ -49,14 +51,9 @@ public class Ammo : MonoBehaviour {
 			return;
 		}
 
-		if (oxColor >= 0 && type == Type.Default) {
-			gameObject.GetComponent<SpriteRenderer>().sprite = defaultSprite;
-
-		} else if (oxColor == -1 && type == Type.Default) {
-			gameObject.GetComponent<SpriteRenderer>().sprite = idleSprite;
+		if (type == Type.Default) {
+			UpdateColor ();
 		}
-
-		UpdateColor ();
 	}
 
 	void interpolateToGoal()
@@ -72,40 +69,11 @@ public class Ammo : MonoBehaviour {
 	}
 
 	void UpdateColor() {
-		switch (oxColor) {
-		case 0: 
-			GetComponent<SpriteRenderer>().color = Color.red;
-			break;
-		case 1:
-			GetComponent<SpriteRenderer>().color = Color.green;
-			break;
-		case 2:
-			GetComponent<SpriteRenderer>().color = Color.blue;
-			break;
-		case 3:
-			GetComponent<SpriteRenderer>().color = Color.yellow;
-			break;
-		case 4:
-			GetComponent<SpriteRenderer>().color = new Color(127/255, 63/255, 152/255);
-			break;
-		case 5:
-			GetComponent<SpriteRenderer>().color = Color.magenta;
-			break;
-		case 6:
-			GetComponent<SpriteRenderer>().color = Color.grey;
-			break;
-		case -1:
-			GetComponent<SpriteRenderer>().color = Color.white;
-			break;
-		default:
-			GetComponent<SpriteRenderer>().color = Color.white;
-			break;
+		if (oxColor == -1) {
+			gameObject.GetComponent<SpriteRenderer>().sprite = idleSprite;
+		} else {
+			gameObject.GetComponent<SpriteRenderer>().sprite = coloredSprites[oxColor];
 		}
-
-		if (type == Type.Bomb) {
-			GetComponent<SpriteRenderer>().color = Color.white;
-		}
-
 	}
 
 	void OnCollisionEnter2D(Collision2D collidedObject)
