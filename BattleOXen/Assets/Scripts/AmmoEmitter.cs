@@ -37,6 +37,7 @@ public class AmmoEmitter : MonoBehaviour {
 			ammo.gameObject.GetComponent<Rigidbody2D>().AddTorque(tourque);
 			if(ammo.tag == "ammo")
 			{
+                ammo.gameObject.GetComponent<SpriteRenderer>().sortingOrder = -5;
 				ammo.gameObject.GetComponent<Ammo>().state = Ammo.State.Idle;
 				//GameManager.IgnoreCollisionWithAllPlayers(ammo.GetComponent<BoxCollider2D>(), true);
 			}
