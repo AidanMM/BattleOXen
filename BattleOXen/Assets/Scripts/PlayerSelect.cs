@@ -44,6 +44,9 @@ public class PlayerSelect : MonoBehaviour {
 			if (Input.GetButtonDown(joystickButton) || Input.GetKeyDown(KeyCode.Space)) {
 				ready = true;
 				UpdateStatus();
+			} else if (Input.GetButtonDown(joystickBack)) {
+				joined = false;
+				UpdateStatus();
 			} else if (!ready) {
 				float axis = Input.GetAxis (joystickAxis);
 				if (OutsideDeadzone(axis)) {
