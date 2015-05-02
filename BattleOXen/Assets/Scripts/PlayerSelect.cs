@@ -38,6 +38,7 @@ public class PlayerSelect : MonoBehaviour {
 		if (joined) {
 			if (Input.GetButtonDown(joystickButton) || Input.GetKeyDown(KeyCode.Space)) {
 				ready = !ready;
+				UpdateStatus();
 			} else if (!ready) {
 				float axis = Input.GetAxis (joystickAxis);
 				if (OutsideDeadzone(axis)) {
