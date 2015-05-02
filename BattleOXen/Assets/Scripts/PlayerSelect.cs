@@ -108,7 +108,8 @@ public class PlayerSelect : MonoBehaviour {
 			arrows.SetActive(true);
 		} else {
 			arrows.SetActive(false);
-			playerStatus.GetComponent<SpriteRenderer>().sprite = pressSprite;
+			playerStatus.GetComponent<SpriteRenderer>().sprite = null;
+			gameObject.GetComponent<SpriteRenderer>().sprite = pressSprite;
 
 		}
 	}
