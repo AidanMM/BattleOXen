@@ -51,9 +51,7 @@ public class AmmoOrbit : MonoBehaviour {
 		for(int i = 0; i < InitialOrbitCount; i++)
 		{
 			GameObject ammo = (GameObject)Instantiate(AmmoPrefab);
-			ammo.GetComponent<Ammo>().type = Ammo.Type.Bomb;
-            print(ammo.GetComponent<Ammo>().bombSprite);
-            ammo.GetComponent<SpriteRenderer>().sprite = ammo.GetComponent<Ammo>().bombSprite;
+			ammo.GetComponent<Ammo>().type = Ammo.Type.Default;
 			AddAmmoToOrbit(ammo);
 		}
 	}
