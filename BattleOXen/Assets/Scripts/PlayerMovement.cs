@@ -10,28 +10,24 @@ public class PlayerMovement : MonoBehaviour {
 	private Vector2 acceleration;
 	public int playerID { get; set; }
 	public int oxColor = -1;
-	public bool lockControls = true;
+	public Vector2 initPos;
 	public bool gameover = false;
+	public int lives = 3;
 
 	// Use this for initialization
 	void Start () {
 		acceleration = new Vector2 (0, 0);
+		initPos = gameObject.transform.position;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (!gameover) {
-			if (lockControls != true) {
-				if (Input.GetJoystickNames ().Length > 0) {
-					GetJoystickInput ();
-				} else {
-					if (playerID == 1) {
-						GetKeyboardInput ();
-					}
-				}
+			if (Input.GetJoystickNames ().Length > 0) {
+				GetJoystickInput ();
 			} else {
-				if (gameObject.GetComponent<AmmoOrbit> ().secondsTimer > 5) {
-					lockControls = false;
+				if (playerID == 1) {
+					GetKeyboardInput ();
 				}
 			}
 			acceleration.y = -(float)25;
@@ -61,11 +57,21 @@ public class PlayerMovement : MonoBehaviour {
 					break;
 				}
 
-				this.enabled = false;
-
-				GameObject.FindGameObjectWithTag ("MainGO").GetComponent<GameManager> ().LastManStanding ();
+				lives--;
+				gameObject.SetActive (false);
+				gameObject.GetComponent<AmmoOrbit> ().RemoveAllAmmo ();
+				if (lives > 0) {
+					Invoke("Respawn", 2);
+				} else {
+					GameObject.FindGameObjectWithTag ("MainGO").GetComponent<GameManager> ().LastManStanding ();
+				}
 			}
 		}
+	}
+
+	void Respawn() {
+		gameObject.transform.position = initPos;
+		gameObject.SetActive (true);
 	}
 
 	void GetJoystickInput() {

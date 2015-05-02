@@ -37,7 +37,7 @@ public class AmmoOrbit : MonoBehaviour {
 		HandleThrown ();
 		secondsTimer += 1 * Time.deltaTime;
 
-		if (OrbitList.Count > 0 && GetComponent<PlayerMovement>().lockControls == false) {
+		if (OrbitList.Count > 0) {
 			if (Input.GetJoystickNames ().Length > 0) {
 				GetJoystickSuper();
 				GetJoystickThrow ();
@@ -75,6 +75,15 @@ public class AmmoOrbit : MonoBehaviour {
 			OrbitList.Remove (ammo);
 		}
 
+	}
+
+	public void RemoveAllAmmo() {
+		Ammo ammo;
+		for (int i = 0; i < OrbitList.Count; i++) {
+			ammo = OrbitList[i].GetComponent<Ammo>();
+			ammo.DeactivateSelf();
+		}
+		OrbitList = new List<GameObject> ();
 	}
 
 	void GetJoystickSuper() {

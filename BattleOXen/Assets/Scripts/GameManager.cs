@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour {
 		int deadPlayers = 0;
 		for(int i = 0; i < numPlayers; i++)
 		{
-			if(Players[i].GetComponent<PlayerMovement>().enabled == true)
+			if(Players[i].GetComponent<PlayerMovement>().lives > 0)
 			{
 				aliveIndex = i;
 			}
@@ -59,7 +59,8 @@ public class GameManager : MonoBehaviour {
 			int id = p.pid[i];
 			int offset = (i+1) % 2 == 0 ? 1 : -1;
 			float x = offset * 60 * ((int)(i+2)/2);
-			player = (GameObject)Instantiate (PlayerPrefab, new Vector2 (x, -80), Quaternion.identity);
+			Vector2 pos = new Vector2 (x, -80);
+			player = (GameObject)Instantiate (PlayerPrefab, pos, Quaternion.identity);
 			player.name = id.ToString();
 			player.GetComponent<PlayerMovement>().playerID = id;
 			player.GetComponent<PlayerMovement>().oxColor = p.oxColors[i];
@@ -94,7 +95,7 @@ public class GameManager : MonoBehaviour {
 	void ResetLevelOnInput()
 	{
 		if (Input.GetKey (KeyCode.R)) {
-			Application.LoadLevel(0);
+			Application.LoadLevel("ModeSelect");
 		}
 	}
 
