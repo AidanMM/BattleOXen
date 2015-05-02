@@ -7,6 +7,7 @@ public class ButtonManager : MonoBehaviour {
 	public IOrderedEnumerable<GameObject> ButtonList;
 	int index = 0;
 	string joystickAxis = "J1LVertical";
+	string joystickButton = "J1Jump";
 	float axis;
 	float oldAxis;
 	// Use this for initialization
@@ -42,19 +43,19 @@ public class ButtonManager : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S) ||
 		   (axis < -.5f && oldAxis > -.5f))
 		{
-			index++;
+			index--;
 			index %= ButtonList.Count ();
 		}
 		else if(Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)||
 		        (axis > .5f && oldAxis < .5f))
 		{
-			index--;
+			index++;
 			if(index < 0)
 			{
 				index = ButtonList.Count() - 1;
 			}
 		}
-		if (Input.GetKeyDown (KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)) {
+		if (Input.GetKeyDown (KeyCode.Return) || Input.GetKeyDown(KeyCode.Space) || Input.GetButton(joystickButton)) {
 			ButtonList.ElementAt(index).GetComponent<Button>().NextLevel();
 		}
 
