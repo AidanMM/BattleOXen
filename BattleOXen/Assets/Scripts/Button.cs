@@ -14,7 +14,15 @@ public class Button : MonoBehaviour {
 
 	// Use this for initialization
 	public void Start () {
-		gameObject.GetComponent<SpriteRenderer>().sprite = Idle;
+        if (Idle != null)
+        {
+            gameObject.GetComponent<SpriteRenderer>().sprite = Idle;
+        }
+        else
+        {
+            Idle = gameObject.GetComponent<SpriteRenderer>().sprite;
+            Hovered = gameObject.GetComponent<SpriteRenderer>().sprite;
+        }
 	}
 	
 	// Update is called once per frame
