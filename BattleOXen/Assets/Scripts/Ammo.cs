@@ -18,7 +18,8 @@ public class Ammo : MonoBehaviour {
 	private Vector3 effectPosition;
 	public int oxColor = -1;
     public Sprite bombSprite;
-	public bool idleTimer;
+	public Sprite defaultSprite;
+	public Sprite idleSprite;
 
 
 	// Use this for initialization
@@ -45,6 +46,13 @@ public class Ammo : MonoBehaviour {
 				effectTimer++;
 			}
 			return;
+		}
+
+		if (oxColor >= 0 && type == Type.Default) {
+			gameObject.GetComponent<SpriteRenderer>().sprite = defaultSprite;
+
+		} else if (oxColor == -1 && type == Type.Default) {
+			gameObject.GetComponent<SpriteRenderer>().sprite = idleSprite;
 		}
 
 		UpdateColor ();
@@ -76,13 +84,27 @@ public class Ammo : MonoBehaviour {
 		case 3:
 			GetComponent<SpriteRenderer>().color = Color.yellow;
 			break;
+		case 4:
+			GetComponent<SpriteRenderer>().color = new Color(127/255, 63/255, 152/255);
+			break;
+		case 5:
+			GetComponent<SpriteRenderer>().color = Color.magenta;
+			break;
+		case 6:
+			GetComponent<SpriteRenderer>().color = Color.grey;
+			break;
 		case -1:
-			GetComponent<SpriteRenderer>().color = Color.gray;
+			GetComponent<SpriteRenderer>().color = Color.white;
 			break;
 		default:
 			GetComponent<SpriteRenderer>().color = Color.white;
 			break;
 		}
+
+		if (type == Type.Bomb) {
+			GetComponent<SpriteRenderer>().color = Color.white;
+		}
+
 	}
 
 	void OnCollisionEnter2D(Collision2D collidedObject)
