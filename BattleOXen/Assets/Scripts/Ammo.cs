@@ -157,7 +157,7 @@ public class Ammo : MonoBehaviour {
 			obj.GetComponent<AmmoGhost> ().AmmoParent.GetComponent<Ammo> ().state == State.Thrown &&
 			!obj.GetComponent<AmmoGhost> ().AmmoParent.GetComponent<Ammo> ().effectActivated;
 	}
-	private void DeactivateSelf() {
+	public void DeactivateSelf() {
 		AmmoGhost.SetActive(false);
 		gameObject.SetActive(false);
 	}

@@ -31,7 +31,6 @@ public class PlayerSelect : MonoBehaviour {
 
 		joinedSprite = Resources.Load<Sprite> ("PlayerSelect/joined");
 		readySprite = Resources.Load<Sprite> ("PlayerSelect/ready");
-		print (joinedSprite);
 	}
 	
 	// Update is called once per frame
