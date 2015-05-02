@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
 	private PlayerSelectObject p;
 
 	private GameObject[] stocks;
+	public static GameObject[,] Lives;
 
 	//private List<GameObject> players;
 
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour {
 		p = GameObject.Find ("PlayerSelectObject").GetComponent<PlayerSelectObject>();
 		GetNumPlayers ();
 		stocks = new GameObject[numPlayers];
+		Lives = new GameObject[numPlayers,3];
+		GetLives ();
 		Players = new GameObject[numPlayers];
 		CreatePlayers ();
 	}
@@ -24,6 +27,15 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		ResetLevelOnInput ();
+	}
+
+	private void GetLives() {
+		for (int i = 0; i < numPlayers; i++) { 
+			for (int j = 0; j < 3; j++) {
+				Lives[i,j] = GameObject.Find("Lives"+(i+1)+(j+1));
+				print (Lives[i,j]);
+			}
+		}
 	}
 
 	public void LastManStanding()
@@ -72,6 +84,9 @@ public class GameManager : MonoBehaviour {
 			player.GetComponent<Rigidbody2D>().mass = (float)1.2;
 			stocks[i] = GameObject.Find("Stock" + id);
 			stocks[i].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Stock/" + p.oxColors[i]);
+			for (int j = 0; j < 3; j++) {
+				Lives[id-1,j].GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Oxen/" + p.oxColors[i]);
+			}
 			Players[i] = player;
 		}
 	}

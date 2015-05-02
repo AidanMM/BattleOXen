@@ -57,6 +57,7 @@ public class PlayerMovement : MonoBehaviour {
 				}
 
 				lives--;
+				GameManager.Lives[playerID-1,lives].SetActive(false);
 				gameObject.SetActive (false);
 				gameObject.GetComponent<AmmoOrbit> ().RemoveAllAmmo ();
 				if (lives > 0) {
