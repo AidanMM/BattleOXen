@@ -81,7 +81,7 @@ public class PlayerSelect : MonoBehaviour {
 				UpdateSprite ();
 				joined = true;
 				UpdateStatus();
-			} else if (Input.GetButtonDown(joystickBack)) { 
+			} else if (Input.GetButtonDown("J1Back")) { 
 				Application.LoadLevel ("ModeSelect");
 			}
 		}
