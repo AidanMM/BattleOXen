@@ -86,6 +86,7 @@ public class Ammo : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D collidedObject)
 	{
+        gameObject.GetComponent<SpriteRenderer>().sortingOrder = -1;
 		if (IsStage(collidedObject.gameObject) && state == State.Thrown &&
 		    ( (collidedObject.gameObject.GetComponent<PlatformEffector2D>().oneWay == true && 
 		 	gameObject.GetComponent<Rigidbody2D>().velocity.y <= 0.1f) ||
@@ -97,7 +98,7 @@ public class Ammo : MonoBehaviour {
 			// If a thrown ammo hits a different player and its a bomb, activate bomb effect
 			ActivateBombEffect();
 		}
-	}
+    }
 
 	void OnTriggerEnter2D(Collider2D colliderObject) 
 	{

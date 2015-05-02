@@ -49,6 +49,13 @@ public class StatButton : Button {
 		case "custom":
 			RulesScript.useCustomRules = !RulesScript.useCustomRules;
 			break;
+        case "lives":
+            RulesScript.lives += (int)amount;
+            if (RulesScript.lives <= 0)
+            {
+                RulesScript.lives = 1;
+            }
+            break;
 		default:
 			//Do nothing
 			break;
